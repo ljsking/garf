@@ -76,23 +76,6 @@
 
 /*
 *********************************************************************************************************
-*                                                 DEFINES
-*********************************************************************************************************
-*/
-
-#define  BSP_JOYSTICK_NONE                       DEF_BIT_NONE
-#define  BSP_JOYSTICK_UP                         DEF_BIT_00
-#define  BSP_JOYSTICK_DOWN                       DEF_BIT_01
-#define  BSP_JOYSTICK_LEFT                       DEF_BIT_02
-#define  BSP_JOYSTICK_RIGHT                      DEF_BIT_03
-#define  BSP_JOYSTICK_CENTER                     DEF_BIT_04
-
-#define  BSP_PB_ID_KEY                                     1
-#define  BSP_PB_ID_WAKEUP                                  2
-#define  BSP_PB_ID_TAMPER                                  3
-
-/*
-*********************************************************************************************************
 *                                               INT DEFINES
 *********************************************************************************************************
 */

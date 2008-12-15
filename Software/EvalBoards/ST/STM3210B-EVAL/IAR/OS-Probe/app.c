@@ -344,7 +344,7 @@ static  void  App_TaskKbd (void *p_arg)
     b1_prev = DEF_FALSE;
 
     while (DEF_TRUE) {
-        b1 = BSP_PB_GetStatus(BSP_PB_ID_KEY);
+        b1 = BSP_PB_GetStatus(0);
 
         if ((b1 == DEF_TRUE) && (b1_prev == DEF_FALSE)) {
             OSMboxPost(App_UserIFMbox, (void *)0);
@@ -393,17 +393,16 @@ static  void  App_TaskUserIF (void *p_arg)
         msg = (CPU_INT08U *)(OSMboxPend(App_UserIFMbox, OS_TICKS_PER_SEC / 10, &err));
         if (err == OS_NO_ERR) {
             nstate = (CPU_INT32U)msg;
-        }
-        switch (nstate) {
+            switch (nstate) {
             case 0:
                 count++;
-                
                 break;
+            }
+            if(count%2)
+               BSP_LED_On(4);
+            else
+               BSP_LED_Off(4);
         }
-        if(count%2)
-           BSP_LED_On(4);
-        else
-           BSP_LED_Off(4);
     }
 }
 
@@ -559,20 +558,10 @@ static  void  App_ProbeCallback (void)
     CPU_INT32U  sym_curr;
     CPU_INT32U  symbyte_curr;
 #endif
-    CPU_INT32U  joystick;
-
-
+    
     App_ProbeCounts++;
 
     App_ProbeB1             = BSP_PB_GetStatus(1);
-
-    joystick                = BSP_Joystick_GetStatus();
-    App_ProbeJoystickCenter = DEF_BIT_IS_SET(joystick, BSP_JOYSTICK_CENTER);
-    App_ProbeJoystickDown   = DEF_BIT_IS_SET(joystick, BSP_JOYSTICK_DOWN);
-    App_ProbeJoystickLeft   = DEF_BIT_IS_SET(joystick, BSP_JOYSTICK_LEFT);
-    App_ProbeJoystickRight  = DEF_BIT_IS_SET(joystick, BSP_JOYSTICK_RIGHT);
-    App_ProbeJoystickUp     = DEF_BIT_IS_SET(joystick, BSP_JOYSTICK_UP);
-
 
 #if ((APP_PROBE_COM_EN  == DEF_ENABLED) && \
      (PROBE_COM_STAT_EN == DEF_ENABLED))

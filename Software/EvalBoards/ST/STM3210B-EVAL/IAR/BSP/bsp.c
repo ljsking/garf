@@ -116,8 +116,6 @@
 
 static  void  BSP_ADC_Init     (void);
 
-static  void  BSP_Joystick_Init(void);
-
 static  void  BSP_LED_Init     (void);
 
 static  void  BSP_PB_Init      (void);
@@ -172,7 +170,7 @@ void  BSP_Init (void)
         ;
     }
 
-    //BSP_ADC_Init();                                             /* Initialize the I/Os for the ADC      controls.       */
+    BSP_ADC_Init();                                             /* Initialize the I/Os for the ADC      controls.       */
     BSP_LED_Init();                                             /* Initialize the I/Os for the LED      controls.       */
     BSP_PB_Init();                                              /* Initialize the I/Os for the PB       control.        */
     //BSP_Joystick_Init();                                        /* Initialize the I/Os for the Joystick control.        */
@@ -384,105 +382,6 @@ CPU_BOOLEAN  BSP_PB_GetStatus (CPU_INT08U pb)
     if (pin == 0) {
         status = DEF_TRUE;
     }
-    return (status);
-}
-
-/*
-*********************************************************************************************************
-*********************************************************************************************************
-*                                           JOYSTICK FUNCTIONS
-*********************************************************************************************************
-*********************************************************************************************************
-*/
-
-/*
-*********************************************************************************************************
-*                                           BSP_Joystick_Init()
-*
-* Description : Initialize the board's joystick.
-*
-* Argument(s) : none.
-*
-* Return(s)   : none.
-*
-* Caller(s)   : BSP_Init().
-*
-* Note(s)     : none.
-*********************************************************************************************************
-*/
-
-static  void  BSP_Joystick_Init (void)
-{
-    GPIO_InitTypeDef  gpio_init;
-
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOE, ENABLE);
-
-                                                                /* Configure JOY_UP, JOY_SEL, JOY_DOWN.                 */
-    gpio_init.GPIO_Pin  = BSP_GPIOD_JOY_UP | BSP_GPIOD_JOY_SEL | BSP_GPIOD_JOY_DOWN;
-    gpio_init.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-    GPIO_Init(GPIOD, &gpio_init);
-
-                                                                /* Configure JOY_LEFT & JOY_RIGHT.                      */
-    gpio_init.GPIO_Pin  = BSP_GPIOE_JOY_LEFT | BSP_GPIOE_JOY_RIGHT;
-    gpio_init.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-    GPIO_Init(GPIOE, &gpio_init);
-}
-
-/*
-*********************************************************************************************************
-*                                        BSP_Joystick_GetStatus()
-*
-* Description : Get the status of the joystick on the board.
-*
-* Argument(s) : none.
-*
-* Return(s)   : Bit-mapped status of joystick :
-*
-*                   BSP_JOYSTICK_CENTER     if the joystick is being pressed.
-*                   BSP_JOYSTICK_LEFT       if the joystick is toggled left.
-*                   BSP_JOYSTICK_RIGHT      if the joystick is toggled right.
-*                   BSP_JOYSTICK_UP         if the joystick is toggled up.
-*                   BSP_JOYSTICK_DOWN       if the joystick is toggled down.
-*
-* Caller(s)   : Application.
-*
-* Note(s)     : none.
-*********************************************************************************************************
-*/
-
-CPU_INT32U  BSP_Joystick_GetStatus (void)
-{
-    CPU_BOOLEAN  pin;
-    CPU_BOOLEAN  status;
-
-    status = 0;
-
-    pin    = GPIO_ReadInputDataBit(GPIOE, BSP_GPIOE_JOY_RIGHT);
-    if (pin == 0) {
-        status |= BSP_JOYSTICK_LEFT;
-    }
-
-    pin    = GPIO_ReadInputDataBit(GPIOE, BSP_GPIOE_JOY_LEFT);
-    if (pin == 0) {
-        status |= BSP_JOYSTICK_RIGHT;
-    }
-
-    pin    = GPIO_ReadInputDataBit(GPIOD, BSP_GPIOD_JOY_UP);
-    if (pin == 0) {
-        status |= BSP_JOYSTICK_UP;
-    }
-
-    pin    = GPIO_ReadInputDataBit(GPIOD, BSP_GPIOD_JOY_DOWN);
-    if (pin == 0) {
-        status |= BSP_JOYSTICK_DOWN;
-    }
-
-    pin    = GPIO_ReadInputDataBit(GPIOD, BSP_GPIOD_JOY_SEL);
-    if (pin == 0) {
-        status |= BSP_JOYSTICK_CENTER;
-    }
-
     return (status);
 }
 
