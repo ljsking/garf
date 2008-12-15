@@ -1,0 +1,11 @@
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[Disassemble mode]
+mode=1
+[Breakpoints]
+Count=0
+[TraceHelper]
+Enabled=0
+ShowSource=1
