@@ -127,7 +127,6 @@ static  void  App_TaskUserIF       (void        *p_arg);
 static  void  App_TaskKbd          (void        *p_arg);
 
 static  void  App_DispScr_SignOn   (void);
-static  void  App_DispScr_TaskNames(void);
 
 #if ((APP_PROBE_COM_EN == DEF_ENABLED) || \
      (APP_OS_PROBE_EN  == DEF_ENABLED))
@@ -185,7 +184,6 @@ int  main (void)
     return (0);
 }
 
-
 /*
 *********************************************************************************************************
 *                                          App_TaskStart()
@@ -205,7 +203,6 @@ int  main (void)
 static  void  App_TaskStart (void *p_arg)
 {
     CPU_INT32U  i;
-    CPU_INT32U  j;
     CPU_INT32U  dly;
 
 
@@ -223,35 +220,15 @@ static  void  App_TaskStart (void *p_arg)
     App_InitProbe();
 #endif
 
-    //App_EventCreate();                                          /* Create application events.                           */
-    //App_TaskCreate();                                           /* Create application tasks.                            */
+    App_EventCreate();                                          /* Create application events.                           */
+    App_TaskCreate();                                           /* Create application tasks.                            */
 
     while (DEF_TRUE) {                                          /* Task body, always written as an infinite loop.       */
-        /*for (j = 0; j < 4; j++) {
-            for (i = 1; i <= 4; i++) {
-                BSP_LED_On(i);
-                dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
-                OSTimeDlyHMSM(0, 0, 0, dly);
-                BSP_LED_Off(i);
-                dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
-                OSTimeDlyHMSM(0, 0, 0, dly);
-            }
-
-            for (i = 3; i >= 2; i--) {
-                BSP_LED_On(i);
-                dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
-                OSTimeDlyHMSM(0, 0, 0, dly);
-                BSP_LED_Off(i);
-                dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
-                OSTimeDlyHMSM(0, 0, 0, dly);
-            }
-        }*/
-
         for (i = 0; i < 4; i++) {
-            BSP_LED_On(0);
+            BSP_LED_On(3);
             dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
             OSTimeDlyHMSM(0, 0, 0, dly * 3);
-            BSP_LED_Off(0);
+            BSP_LED_Off(3);
             dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
             OSTimeDlyHMSM(0, 0, 0, dly * 3);
         }
@@ -361,29 +338,21 @@ static  void  App_TaskKbd (void *p_arg)
 {
     CPU_BOOLEAN  b1_prev;
     CPU_BOOLEAN  b1;
-    CPU_INT08U   key;
-
 
     (void)p_arg;
 
     b1_prev = DEF_FALSE;
-    key     = 1;
 
     while (DEF_TRUE) {
         b1 = BSP_PB_GetStatus(BSP_PB_ID_KEY);
 
         if ((b1 == DEF_TRUE) && (b1_prev == DEF_FALSE)) {
-            if (key == 2) {
-                key = 1;
-            } else {
-                key++;
-            }
-
-            OSMboxPost(App_UserIFMbox, (void *)key);
+            OSMboxPost(App_UserIFMbox, (void *)0);
         }
-
+        else if ((b1 == DEF_FALSE) && (b1_prev == DEF_TRUE)){
+            OSMboxPost(App_UserIFMbox, (void *)1);
+        }
         b1_prev = b1;
-
         OSTimeDlyHMSM(0, 0, 0, 20);
     }
 }
@@ -410,16 +379,14 @@ static  void  App_TaskUserIF (void *p_arg)
     CPU_INT08U  *msg;
     CPU_INT08U   err;
     CPU_INT32U   nstate;
-    CPU_INT32U   pstate;
-
-
+    CPU_INT32U   count;
+    count = 0;
     (void)p_arg;
 
 
     App_DispScr_SignOn();
     OSTimeDlyHMSM(0, 0, 1, 0);
     nstate = 1;
-    pstate = 1;
 
 
     while (DEF_TRUE) {
@@ -427,22 +394,16 @@ static  void  App_TaskUserIF (void *p_arg)
         if (err == OS_NO_ERR) {
             nstate = (CPU_INT32U)msg;
         }
-
-        if (nstate != pstate) {
-            LCD_Clear(APP_COLOR_WHITE);
-            pstate  = nstate;
-        }
-
         switch (nstate) {
-            case 2:
-                App_DispScr_TaskNames();
-                break;
-
-            case 1:
-            default:
-                App_DispScr_SignOn();
+            case 0:
+                count++;
+                
                 break;
         }
+        if(count%2)
+           BSP_LED_On(4);
+        else
+           BSP_LED_Off(4);
     }
 }
 
@@ -514,124 +475,6 @@ static  void  App_DispScr_SignOn (void)
     LCD_DisplayString(APP_LINE_6, App_LCDLine6);
     LCD_DisplayString(APP_LINE_7, App_LCDLine7);
     LCD_DisplayString(APP_LINE_8, App_LCDLine8);
-}
-
-
-
-/*
-*********************************************************************************************************
-*                                          App_DispScr_SignOn()
-*
-* Description : Display uC/OS-II system information on the LCD.
-*
-* Argument(s) : none.
-*
-* Return(s)   : none.
-*
-* Caller(s)   : App_TaskUserIF().
-*
-* Note(s)     : none.
-*********************************************************************************************************
-*/
-
-static  void  App_DispScr_TaskNames (void)
-{
-    CPU_INT08U   ix;
-    OS_TCB      *ptcb;
-    CPU_CHAR    *line;
-    CPU_INT08U   value;
-
-
-    ptcb = &OSTCBTbl[0];
-    ix   = 0;
-
-    Str_Copy(App_LCDLine0, "  Micrium uC/OS-II  ");
-    Str_Copy(App_LCDLine1, "ST STM32 (Cortex-M3)");
-
-    Str_Copy(App_LCDLine2, "  Prio   Taskname   ");
-
-    while (ptcb != NULL) {
-        value = ptcb->OSTCBPrio;
-
-        switch (ix) {
-            case 0:
-                 line = App_LCDLine3;
-                 break;
-
-            case 1:
-                 line = App_LCDLine4;
-                 break;
-
-            case 2:
-                 line = App_LCDLine5;
-                 break;
-
-            case 3:
-                 line = App_LCDLine6;
-                 break;
-
-            case 4:
-                 line = App_LCDLine7;
-                 break;
-
-            case 5:
-                 line = App_LCDLine8;
-                 break;
-
-            case 6:
-                 line = App_LCDLine9;
-                 break;
-
-            default:
-                 line = (CPU_CHAR *)0;
-                 break;
-        }
-
-        if (line == (CPU_CHAR *)0) {
-            break;
-        }
-
-        line[0] = ' ';
-        line[1] = ' ';
-        line[2] = ' ';
-        line[3] = value / 10 + '0';
-        line[4] = value % 10 + '0';
-        line[5] = ' ';
-        Str_Copy_N(line + 6, ptcb->OSTCBTaskName, 14);
-
-        ptcb    = ptcb->OSTCBPrev;
-        ix++;
-    }
-
-    if (ix < 6) {
-        Str_Copy(App_LCDLine9, "                    ");
-    }
-
-    if (ix < 5) {
-        Str_Copy(App_LCDLine8, "                    ");
-    }
-
-    if (ix < 4) {
-        Str_Copy(App_LCDLine7, "                    ");
-    }
-
-    if (ix < 3) {
-        Str_Copy(App_LCDLine6, "                    ");
-    }
-
-    LCD_SetTextColor(APP_COLOR_BLUE);
-    LCD_DisplayString(APP_LINE_0, App_LCDLine0);
-    LCD_DisplayString(APP_LINE_1, App_LCDLine1);
-    LCD_SetTextColor(APP_COLOR_RED);
-    LCD_DisplayString(APP_LINE_2, App_LCDLine2);
-    LCD_SetTextColor(APP_COLOR_BLACK);
-    LCD_DisplayString(APP_LINE_3, App_LCDLine3);
-    LCD_DisplayString(APP_LINE_4, App_LCDLine4);
-    LCD_DisplayString(APP_LINE_5, App_LCDLine5);
-    LCD_DisplayString(APP_LINE_6, App_LCDLine6);
-    LCD_DisplayString(APP_LINE_7, App_LCDLine7);
-    LCD_DisplayString(APP_LINE_8, App_LCDLine8);
-    LCD_DisplayString(APP_LINE_9, App_LCDLine9);
 }
 
 

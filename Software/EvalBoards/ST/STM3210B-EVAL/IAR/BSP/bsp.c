@@ -172,13 +172,13 @@ void  BSP_Init (void)
         ;
     }
 
-    BSP_ADC_Init();                                             /* Initialize the I/Os for the ADC      controls.       */
+    //BSP_ADC_Init();                                             /* Initialize the I/Os for the ADC      controls.       */
     BSP_LED_Init();                                             /* Initialize the I/Os for the LED      controls.       */
     BSP_PB_Init();                                              /* Initialize the I/Os for the PB       control.        */
-    BSP_Joystick_Init();                                        /* Initialize the I/Os for the Joystick control.        */
+    //BSP_Joystick_Init();                                        /* Initialize the I/Os for the Joystick control.        */
 
-    STM3210B_LCD_Init();
-    LCD_Clear(0xFFFF);
+    //STM3210B_LCD_Init();
+    //LCD_Clear(0xFFFF);
 }
 
 /*
@@ -350,21 +350,10 @@ static  void  BSP_PB_Init (void)
 {
     GPIO_InitTypeDef  gpio_init;
 
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
-    gpio_init.GPIO_Pin  = BSP_GPIOA_PB_WAKEUP;
-    gpio_init.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-    GPIO_Init(GPIOB, &gpio_init);
-
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
-    gpio_init.GPIO_Pin  = BSP_GPIOB_PB_KEY;
+    gpio_init.GPIO_Pin  = BSP_GPIOC_SW_1;
     gpio_init.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-    GPIO_Init(GPIOB, &gpio_init);
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
-    gpio_init.GPIO_Pin  = BSP_GPIOC_PB_TAMPER;
-    gpio_init.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-    GPIO_Init(GPIOB, &gpio_init);
+    GPIO_Init(GPIOC, &gpio_init);
 }
 
 /*
@@ -390,36 +379,11 @@ CPU_BOOLEAN  BSP_PB_GetStatus (CPU_INT08U pb)
 {
     CPU_BOOLEAN  status;
     CPU_INT32U   pin;
-
-
     status = DEF_FALSE;
-
-    switch (pb) {
-        case BSP_PB_ID_KEY:
-             pin = GPIO_ReadInputDataBit(GPIOB, BSP_GPIOB_PB_KEY);
-             if (pin == 0) {
-                 status = DEF_TRUE;
-             }
-             break;
-
-        case BSP_PB_ID_WAKEUP:
-             pin = GPIO_ReadInputDataBit(GPIOA, BSP_GPIOA_PB_WAKEUP);
-             if (pin == 0) {
-                 status = DEF_TRUE;
-             }
-             break;
-
-        case BSP_PB_ID_TAMPER:
-             pin = GPIO_ReadInputDataBit(GPIOC, BSP_GPIOC_PB_TAMPER);
-             if (pin == 0) {
-                 status = DEF_TRUE;
-             }
-             break;
-
-        default:
-             break;
+    pin = GPIO_ReadInputDataBit(GPIOC, BSP_GPIOC_SW_1);
+    if (pin == 0) {
+        status = DEF_TRUE;
     }
-
     return (status);
 }
 
