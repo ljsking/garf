@@ -809,6 +809,9 @@
       <file>
         <name>$PROJ_DIR$\util.c</name>
       </file>
+      <file>
+        <name>$PROJ_DIR$\util.h</name>
+      </file>
     </group>
     <group>
       <name>ST</name>

@@ -57,8 +57,6 @@
 #define  BSP_GPIOB_LCD_SDO                        DEF_BIT_14
 #define  BSP_GPIOB_LCD_SDI                        DEF_BIT_15
 
-
-
 #define  BSP_GPIOB_7_Seg_B                        DEF_BIT_13
 #define  BSP_GPIOB_7_Seg_A                        DEF_BIT_12
 #define  BSP_GPIOB_7_Seg_G                        DEF_BIT_08
@@ -131,9 +129,6 @@ static  void  BSP_7Segs_Init     (void);
 
 static  void  BSP_PB_Init      (void);
 
-///-----------------------------JW
-static   void  BSP_SW_LED_Init(void);
-
 
 /*
 *********************************************************************************************************
@@ -188,12 +183,6 @@ void  BSP_Init (void)
     BSP_LED_Init();                                             /* Initialize the I/Os for the LED      controls.       */
     BSP_7Segs_Init();                                             /* Initialize the I/Os for the LED      controls.       */
     BSP_PB_Init();                                              /* Initialize the I/Os for the PB       control.        */
-    //BSP_Joystick_Init();                                        /* Initialize the I/Os for the Joystick control.        */
-
-    //STM3210B_LCD_Init();
-    //LCD_Clear(0xFFFF);
-    BSP_SW_LED_Init();
-    
 }
 
 /*
@@ -369,44 +358,7 @@ static  void  BSP_PB_Init (void)
     gpio_init.GPIO_Pin  = BSP_GPIOC_SW_1;
     gpio_init.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOC, &gpio_init);
-
-
-       
 }
-
-/* JW's Code
-*********************************************************************************************************
-*/
-
-static  void  BSP_SW_LED_Init (void)
-{
-
-    GPIO_InitTypeDef  gpio_init;
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
-
-    gpio_init.GPIO_Pin   =  BSP_GPIOB_SW_LED_RED;
-    gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
-    gpio_init.GPIO_Mode  = GPIO_Mode_Out_PP;
-    GPIO_Init(GPIOB, &gpio_init);  
-       
-}
-void  BSP_SW_LED_RED_ON (void)
-{
- GPIO_SetBits(GPIOB, BSP_GPIOB_SW_LED_RED);
-}
-
-void  BSP_SW_LED_RED_OFF (void)
-{
-  GPIO_ResetBits(GPIOB, BSP_GPIOB_SW_LED_RED);
-       
-}
-
-
-
-
-
-
-
 
 /*
 *********************************************************************************************************
@@ -474,6 +426,12 @@ static  void  BSP_LED_Init (void)
     gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
     gpio_init.GPIO_Mode  = GPIO_Mode_Out_PP;
     GPIO_Init(GPIOC, &gpio_init);
+    
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+    gpio_init.GPIO_Pin   =  BSP_GPIOB_SW_LED_RED;
+    gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
+    gpio_init.GPIO_Mode  = GPIO_Mode_Out_PP;
+    GPIO_Init(GPIOB, &gpio_init);
 }
 
 /*
@@ -502,9 +460,11 @@ void  BSP_LED_On (CPU_INT08U led)
 {
     switch (led) {
         case 0:
-             GPIO_SetBits(GPIOC,  BSP_GPIOC_LED3 | BSP_GPIOC_LED4);
+             GPIO_SetBits(GPIOC, BSP_GPIOC_LED3);
              break;
-
+        case 1:
+             GPIO_SetBits(GPIOB, BSP_GPIOB_SW_LED_RED);
+             break;
         case 3:
              GPIO_SetBits(GPIOC, BSP_GPIOC_LED3);
              break;
@@ -544,10 +504,13 @@ void  BSP_LED_Off (CPU_INT08U led)
 {
     switch (led) {
         case 0:
-             GPIO_ResetBits(GPIOC,  BSP_GPIOC_LED3 | BSP_GPIOC_LED4);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_LED3);
              break;
-
-
+             
+        case 1:
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_SW_LED_RED);
+             break;
+             
         case 3:
              GPIO_ResetBits(GPIOC, BSP_GPIOC_LED3);
              break;

@@ -185,9 +185,12 @@ static  void  App_TaskStart (void *p_arg)
 {
     CPU_INT32U  i;
     CPU_INT08U  nstate;
+    CPU_INT32U  nbutton;
     CPU_INT08U  err;
     CPU_INT08U  now_stage;
     CPU_INT08U  remained_input;
+    
+    CPU_INT08U  answer[200];
     
     (void)p_arg;
 
@@ -217,11 +220,12 @@ static  void  App_TaskStart (void *p_arg)
         
         case APP_SHOW_SEQ:
             now_stage++;
+            answer[now_stage-1] = MakeRandomNumber(2);
             OSMboxPost(App_7SegsMbox, (void *)now_stage);
             for (i = 0; i < now_stage/*MakeRandomNumber()*/; i++) {
-                BSP_LED_On(3);
+                BSP_LED_On(answer[i]);
                 OSTimeDlyHMSM(0, 0, 0, 500);
-                BSP_LED_Off(3);
+                BSP_LED_Off(answer[i]);
                 OSTimeDlyHMSM(0, 0, 0, 500);
             }
             remained_input = now_stage;
@@ -229,7 +233,7 @@ static  void  App_TaskStart (void *p_arg)
             break;
             
         case APP_WAIT_INPUT:
-            OSMboxPend(App_ProcessMbox, OS_TICKS_PER_SEC*3, &err);
+            nbutton = (CPU_INT32U)OSMboxPend(App_ProcessMbox, OS_TICKS_PER_SEC*3, &err);
             if(OS_ERR_NONE == err){
                 nstate = APP_RECOGNIZE;
             }else if(OS_ERR_TIMEOUT == err){
@@ -247,10 +251,22 @@ static  void  App_TaskStart (void *p_arg)
           
         case APP_RECOGNIZE:
             remained_input--;
-            if(0 == remained_input)
-                nstate = APP_SHOW_SEQ;
-            else
-                nstate = APP_WAIT_INPUT;
+            if(nbutton == answer[remained_input]){
+                if(0 == remained_input)
+                    nstate = APP_SHOW_SEQ;
+                else
+                    nstate = APP_WAIT_INPUT;
+            }else{
+              BSP_LED_On(3);
+                OSTimeDlyHMSM(0, 0, 0, 250);
+                BSP_LED_Off(3);
+                OSTimeDlyHMSM(0, 0, 0, 250);
+                BSP_LED_On(3);
+                OSTimeDlyHMSM(0, 0, 0, 250);
+                BSP_LED_Off(3);
+                OSTimeDlyHMSM(0, 0, 0, 250);
+                nstate = APP_IDLE;
+            }
             break;
         }
 
@@ -378,6 +394,12 @@ static  void  App_TaskKbd (void *p_arg)
 {
     CPU_BOOLEAN  b1_prev;
     CPU_BOOLEAN  b1;
+    CPU_BOOLEAN  b2_prev;
+    CPU_BOOLEAN  b2;
+    CPU_BOOLEAN  b3_prev;
+    CPU_BOOLEAN  b3;
+    CPU_BOOLEAN  b4_prev;
+    CPU_BOOLEAN  b4;
 
     (void)p_arg;
 
@@ -385,12 +407,23 @@ static  void  App_TaskKbd (void *p_arg)
 
     while (DEF_TRUE) {
         b1 = BSP_PB_GetStatus(0);
+        b2 = BSP_PB_GetStatus(1);
+        b3 = BSP_PB_GetStatus(2);
+        b4 = BSP_PB_GetStatus(3);
 
         if ((b1 == DEF_TRUE) && (b1_prev == DEF_FALSE)) {
             OSMboxPost(App_ProcessMbox, (void *)0);
-            OSMboxPost(App_UserIFMbox, (void *)0);
+        }else if((b2 == DEF_TRUE) && (b2_prev == DEF_FALSE)){
+            OSMboxPost(App_ProcessMbox, (void *)1);
+        }else if((b3 == DEF_TRUE) && (b3_prev == DEF_FALSE)){
+            OSMboxPost(App_ProcessMbox, (void *)2);
+        }else if((b4 == DEF_TRUE) && (b4_prev == DEF_FALSE)){
+            OSMboxPost(App_ProcessMbox, (void *)3);
         }
         b1_prev = b1;
+        b2_prev = b2;
+        b3_prev = b3;
+        b4_prev = b4;
         OSTimeDlyHMSM(0, 0, 0, 20);
     }
 }
