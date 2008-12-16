@@ -55,6 +55,7 @@
 #define  APP_TASK_KBD_PRIO                                 4
 
 #define  APP_TASK_USER_IF_PRIO                            12
+#define  APP_TASK_7SEGS_PRIO                              13
 
 #define  OS_PROBE_TASK_PRIO              (OS_LOWEST_PRIO - 3)
 #define  OS_TASK_TMR_PRIO                (OS_LOWEST_PRIO - 2)
@@ -68,6 +69,7 @@
 
 #define  APP_TASK_START_STK_SIZE                         128
 #define  APP_TASK_KBD_STK_SIZE                           128
+#define  APP_TASK_7SEGS_STK_SIZE                         128
 
 #define  APP_TASK_USER_IF_STK_SIZE                       256
 
