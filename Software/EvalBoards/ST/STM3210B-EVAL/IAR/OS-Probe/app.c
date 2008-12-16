@@ -34,7 +34,7 @@
 */
 
 #include <includes.h>
-
+#include "util.h"
 
 /*
 *********************************************************************************************************
@@ -184,6 +184,7 @@ static  void  App_TaskStart (void *p_arg)
     CPU_INT32U  dly;
     CPU_INT08U  nstate;
     CPU_INT08U  err;
+    CPU_INT08U  now_stage;
     
     (void)p_arg;
 
@@ -202,6 +203,7 @@ static  void  App_TaskStart (void *p_arg)
     App_EventCreate();                                          /* Create application events.                           */
     App_TaskCreate();                                           /* Create application tasks.                            */
     nstate = APP_IDLE;
+    now_stage = 1;
     while (DEF_TRUE) {                                          /* Task body, always written as an infinite loop.       */
         switch(nstate){
         case APP_IDLE:
@@ -211,7 +213,7 @@ static  void  App_TaskStart (void *p_arg)
             break;
         
         case APP_SHOW_SEQ:
-            for (i = 0; i < 4; i++) {
+            for (i = 0; i <= MakeRandomNumber(); i++) {
                 BSP_LED_On(3);
                 dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
                 OSTimeDlyHMSM(0, 0, 0, dly * 3);
@@ -219,6 +221,7 @@ static  void  App_TaskStart (void *p_arg)
                 dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
                 OSTimeDlyHMSM(0, 0, 0, dly * 3);
             }
+            now_stage++;
             nstate = APP_IDLE;
             break;
         }
