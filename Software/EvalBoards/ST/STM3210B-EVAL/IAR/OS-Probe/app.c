@@ -225,10 +225,13 @@ static  void  App_TaskStart (void *p_arg)
 
     while (DEF_TRUE) {                                          /* Task body, always written as an infinite loop.       */
         for (i = 0; i < 4; i++) {
-            BSP_LED_On(3);
+            BSP_LED_On(3); 
+
+            BSP_SW_LED_RED_ON();
             dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
             OSTimeDlyHMSM(0, 0, 0, dly * 3);
             BSP_LED_Off(3);
+            BSP_SW_LED_RED_OFF();
             dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
             OSTimeDlyHMSM(0, 0, 0, dly * 3);
         }
