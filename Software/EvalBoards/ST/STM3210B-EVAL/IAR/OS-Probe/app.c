@@ -53,15 +53,11 @@
 #define  APP_LINE_8                                      192
 #define  APP_LINE_9                                      216
 
-#define  APP_COLOR_WHITE                              0xFFFF
-#define  APP_COLOR_BLACK                              0x0000
-#define  APP_COLOR_BLUE                               0x001F
-#define  APP_COLOR_BLUE2                              0x051F
-#define  APP_COLOR_RED                                0xF800
-#define  APP_COLOR_MAGENTA                            0xF81F
-#define  APP_COLOR_GREEN                              0x07E0
-#define  APP_COLOR_CYAN                               0x7FFF
-#define  APP_COLOR_YELLOW                             0xFFE0
+#define  APP_IDLE                                          0
+#define  APP_SHOW_SEQ                                      1
+#define  APP_WAIT_INPUT                                    2
+#define  APP_RECOGNIZE                                     3
+
 
 /*
 *********************************************************************************************************
@@ -74,17 +70,7 @@ static  OS_STK         App_TaskUserIFStk[APP_TASK_USER_IF_STK_SIZE];
 static  OS_STK         App_TaskKbdStk[APP_TASK_KBD_STK_SIZE];
 
 static  OS_EVENT      *App_UserIFMbox;
-
-static  CPU_CHAR       App_LCDLine0[21];
-static  CPU_CHAR       App_LCDLine1[21];
-static  CPU_CHAR       App_LCDLine2[21];
-static  CPU_CHAR       App_LCDLine3[21];
-static  CPU_CHAR       App_LCDLine4[21];
-static  CPU_CHAR       App_LCDLine5[21];
-static  CPU_CHAR       App_LCDLine6[21];
-static  CPU_CHAR       App_LCDLine7[21];
-static  CPU_CHAR       App_LCDLine8[21];
-static  CPU_CHAR       App_LCDLine9[21];
+static  OS_EVENT      *App_ProcessMbox;
 
 #if ((APP_OS_PROBE_EN   == DEF_ENABLED) && \
      (APP_PROBE_COM_EN  == DEF_ENABLED) && \
@@ -126,8 +112,6 @@ static  void  App_TaskStart        (void        *p_arg);
 static  void  App_TaskUserIF       (void        *p_arg);
 static  void  App_TaskKbd          (void        *p_arg);
 
-static  void  App_DispScr_SignOn   (void);
-
 #if ((APP_PROBE_COM_EN == DEF_ENABLED) || \
      (APP_OS_PROBE_EN  == DEF_ENABLED))
 static  void  App_InitProbe        (void);
@@ -136,12 +120,6 @@ static  void  App_InitProbe        (void);
 #if (APP_OS_PROBE_EN == DEF_ENABLED)
 static  void  App_ProbeCallback    (void);
 #endif
-
-
-static  void  App_FormatDec        (CPU_INT08U  *pstr,
-                                    CPU_INT32U   value,
-                                    CPU_INT08U   digits);
-
 
 /*
 *********************************************************************************************************
@@ -204,8 +182,9 @@ static  void  App_TaskStart (void *p_arg)
 {
     CPU_INT32U  i;
     CPU_INT32U  dly;
-
-
+    CPU_INT08U  nstate;
+    CPU_INT08U  err;
+    
     (void)p_arg;
 
     BSP_Init();                                                 /* Initialize BSP functions.                            */
@@ -222,15 +201,26 @@ static  void  App_TaskStart (void *p_arg)
 
     App_EventCreate();                                          /* Create application events.                           */
     App_TaskCreate();                                           /* Create application tasks.                            */
-
+    nstate = APP_IDLE;
     while (DEF_TRUE) {                                          /* Task body, always written as an infinite loop.       */
-        for (i = 0; i < 4; i++) {
-            BSP_LED_On(3);
-            dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
-            OSTimeDlyHMSM(0, 0, 0, dly * 3);
-            BSP_LED_Off(3);
-            dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
-            OSTimeDlyHMSM(0, 0, 0, dly * 3);
+        switch(nstate){
+        case APP_IDLE:
+            OSMboxPend(App_ProcessMbox, 0, &err);
+            if(OS_ERR_NONE == err)
+                nstate = APP_SHOW_SEQ;
+            break;
+        
+        case APP_SHOW_SEQ:
+            for (i = 0; i < 4; i++) {
+                BSP_LED_On(3);
+                dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
+                OSTimeDlyHMSM(0, 0, 0, dly * 3);
+                BSP_LED_Off(3);
+                dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
+                OSTimeDlyHMSM(0, 0, 0, dly * 3);
+            }
+            nstate = APP_IDLE;
+            break;
         }
     }
 }
@@ -261,8 +251,10 @@ static  void  App_EventCreate (void)
 
 
     App_UserIFMbox = OSMboxCreate((void *)0);                   /* Create MBOX for communication between Kbd and UserIF.*/
+    App_ProcessMbox = OSMboxCreate((void *)0);                   /* Create MBOX for communication between Kbd and Process.*/
 #if (OS_EVENT_NAME_SIZE > 12)
     OSEventNameSet(App_UserIFMbox, "User IF Mbox", &os_err);
+    OSEventNameSet(App_ProcessMbox, "Process Mbox", &os_err);
 #endif
 }
 
@@ -348,6 +340,7 @@ static  void  App_TaskKbd (void *p_arg)
 
         if ((b1 == DEF_TRUE) && (b1_prev == DEF_FALSE)) {
             OSMboxPost(App_UserIFMbox, (void *)0);
+            OSMboxPost(App_ProcessMbox, (void *)0);
         }
         else if ((b1 == DEF_FALSE) && (b1_prev == DEF_TRUE)){
             OSMboxPost(App_UserIFMbox, (void *)1);
@@ -383,8 +376,6 @@ static  void  App_TaskUserIF (void *p_arg)
     count = 0;
     (void)p_arg;
 
-
-    App_DispScr_SignOn();
     OSTimeDlyHMSM(0, 0, 1, 0);
     nstate = 1;
 
@@ -404,75 +395,6 @@ static  void  App_TaskUserIF (void *p_arg)
     }
 }
 
-
-/*
-*********************************************************************************************************
-*                                          App_DispScr_SignOn()
-*
-* Description : Display uC/OS-II system information on the LCD.
-*
-* Argument(s) : none.
-*
-* Return(s)   : none.
-*
-* Caller(s)   : App_TaskUserIF().
-*
-* Note(s)     : none.
-*********************************************************************************************************
-*/
-
-static  void  App_DispScr_SignOn (void)
-{
-    CPU_INT32U  value;
-
-
-    Str_Copy(App_LCDLine0, "  Micrium uC/OS-II  ");
-    Str_Copy(App_LCDLine1, "ST STM32 (Cortex-M3)");
-
-    Str_Copy(App_LCDLine2, "                    ");
-
-    Str_Copy(App_LCDLine3, "  uC/OS-II:  Vx.yy  ");
-    value            = (CPU_INT32U)OSVersion();
-    App_LCDLine3[14] =  value / 100 + '0';
-    App_LCDLine3[16] = (value % 100) / 10 + '0';
-    App_LCDLine3[17] = (value %  10) + '0';
-
-    Str_Copy(App_LCDLine4, "  TickRate:   xxxx  ");
-    value = (CPU_INT32U)OS_TICKS_PER_SEC;
-    App_FormatDec(&App_LCDLine4[14], value, 4);
-
-    Str_Copy(App_LCDLine5, "  CPU Usage:xx %    ");
-    value            = (CPU_INT32U)OSCPUUsage;
-    App_LCDLine5[12] = (value / 10) + '0';
-    App_LCDLine5[13] = (value % 10) + '0';
-
-    Str_Copy(App_LCDLine6, "  CPU Speed:xx MHz  ");
-    value            = (CPU_INT32U)BSP_CPU_ClkFreq() / 1000000L;
-    App_LCDLine6[12] = (value / 10) + '0';
-    App_LCDLine6[13] = (value % 10) + '0';
-
-    Str_Copy(App_LCDLine7, "  #Ticks: xxxxxxxx  ");
-    value = (CPU_INT32U)OSTime;
-    App_FormatDec(&App_LCDLine7[10], value, 8);
-
-    Str_Copy(App_LCDLine8, "  #CtxSw: xxxxxxxx  ");
-    value = (CPU_INT32U)OSCtxSwCtr;
-    App_FormatDec(&App_LCDLine8[10], value, 8);
-
-    Str_Copy(App_LCDLine9, "                    ");
-
-    LCD_SetTextColor(APP_COLOR_BLUE);
-    LCD_DisplayString(APP_LINE_0, App_LCDLine0);
-    LCD_DisplayString(APP_LINE_1, App_LCDLine1);
-    LCD_SetTextColor(APP_COLOR_BLACK);
-    LCD_DisplayString(APP_LINE_2, App_LCDLine2);
-    LCD_DisplayString(APP_LINE_3, App_LCDLine3);
-    LCD_DisplayString(APP_LINE_4, App_LCDLine4);
-    LCD_DisplayString(APP_LINE_5, App_LCDLine5);
-    LCD_DisplayString(APP_LINE_6, App_LCDLine6);
-    LCD_DisplayString(APP_LINE_7, App_LCDLine7);
-    LCD_DisplayString(APP_LINE_8, App_LCDLine8);
-}
 
 
 /*
@@ -526,7 +448,6 @@ static  void  App_InitProbe (void)
 #endif
 }
 #endif
-
 
 /*
 *********************************************************************************************************
@@ -584,62 +505,6 @@ static  void  App_ProbeCallback (void)
 #endif
 }
 #endif
-
-
-/*
-*********************************************************************************************************
-*                                      App_FormatDec()
-*
-* Description : Convert a decimal value to ASCII (without leading zeros).
-*
-* Argument(s) : pstr            Pointer to the destination ASCII string.
-*
-*               value           Value to convert (assumes an unsigned value).
-*
-*               digits          The desired number of digits.
-*
-* Return(s)   : none.
-*
-* Caller(s)   : various.
-*
-* Note(s)     : none.
-*********************************************************************************************************
-*/
-
-static  void  App_FormatDec (CPU_INT08U *pstr, CPU_INT32U value, CPU_INT08U digits)
-{
-    CPU_INT08U   i;
-    CPU_INT32U   mult;
-    CPU_BOOLEAN  found;
-    CPU_INT32U   nbr;
-
-
-    found = DEF_NO;
-    mult  = 1;
-    for (i = 0; i < (digits - 1); i++) {
-        mult *= 10;
-    }
-    while (mult > 0) {
-        nbr = value / mult;
-        if (found == DEF_NO) {
-            if (nbr != 0) {
-                found = DEF_YES;
-                *pstr = nbr + '0';
-            } else{
-                if (mult == 1) {
-                    *pstr = '0';
-                } else {
-                    *pstr = ' ';
-                }
-            }
-        } else {
-            *pstr = nbr + '0';
-        }
-        pstr++;
-        value %= mult;
-        mult  /= 10;
-    }
-}
 
 
 /*
