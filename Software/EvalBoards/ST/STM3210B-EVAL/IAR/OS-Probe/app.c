@@ -414,8 +414,7 @@ static  void  App_TaskUserIF (void *p_arg)
                 count++;
                 break;
             }
-            BSP_7Segs_On(count%8);
-            BSP_7Segs_Off((count-1)%8);
+            BSP_7Segs(count%10);
         }
     }
 }
