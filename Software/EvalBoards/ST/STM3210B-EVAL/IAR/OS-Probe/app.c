@@ -204,6 +204,7 @@ static  void  App_TaskStart (void *p_arg)
     App_TaskCreate();                                           /* Create application tasks.                            */
     nstate = APP_IDLE;
     while (DEF_TRUE) {                                          /* Task body, always written as an infinite loop.       */
+
         switch(nstate){
         case APP_IDLE:
             now_stage = 0;
