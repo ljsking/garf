@@ -398,10 +398,8 @@ static  void  App_TaskUserIF (void *p_arg)
                 count++;
                 break;
             }
-            if(count%2)
-               BSP_LED_On(4);
-            else
-               BSP_LED_Off(4);
+            BSP_7Segs_On(count%8);
+            BSP_7Segs_Off((count-1)%8);
         }
     }
 }

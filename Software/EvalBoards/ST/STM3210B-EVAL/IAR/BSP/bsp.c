@@ -57,13 +57,18 @@
 #define  BSP_GPIOB_LCD_SDO                        DEF_BIT_14
 #define  BSP_GPIOB_LCD_SDI                        DEF_BIT_15
 
+#define  BSP_GPIOB_7_Seg_B                        DEF_BIT_13
+#define  BSP_GPIOB_7_Seg_A                        DEF_BIT_12
+#define  BSP_GPIOB_7_Seg_F                        DEF_BIT_08
+#define  BSP_GPIOB_7_Seg_E                        DEF_BIT_10
+#define  BSP_GPIOB_7_Seg_D                        DEF_BIT_02
+#define  BSP_GPIOB_7_Seg_C                        DEF_BIT_01
                                                                 /* -------------------- GPIOC PINS -------------------- */
 #define  BSP_GPIOC_POT                            DEF_BIT_04
 #define  BSP_GPIOC_SW_1                           DEF_BIT_07
 #define  BSP_GPIOC_LED3                           DEF_BIT_08
 #define  BSP_GPIOC_LED4                           DEF_BIT_09
-#define  BSP_GPIOC_PB_TAMPER                      DEF_BIT_13
-
+#define  BSP_GPIOC_7_Seg_G                        DEF_BIT_13
                                                                 /* -------------------- GPIOD PINS -------------------- */
 #define  BSP_GPIOD_CAN_RX                         DEF_BIT_00
 #define  BSP_GPIOD_CAN_TX                         DEF_BIT_01
@@ -117,6 +122,8 @@
 static  void  BSP_ADC_Init     (void);
 
 static  void  BSP_LED_Init     (void);
+
+static  void  BSP_7Segs_Init     (void);
 
 static  void  BSP_PB_Init      (void);
 
@@ -172,6 +179,7 @@ void  BSP_Init (void)
 
     BSP_ADC_Init();                                             /* Initialize the I/Os for the ADC      controls.       */
     BSP_LED_Init();                                             /* Initialize the I/Os for the LED      controls.       */
+    BSP_7Segs_Init();                                             /* Initialize the I/Os for the LED      controls.       */
     BSP_PB_Init();                                              /* Initialize the I/Os for the PB       control.        */
     //BSP_Joystick_Init();                                        /* Initialize the I/Os for the Joystick control.        */
 
@@ -563,6 +571,192 @@ void  BSP_LED_Toggle (CPU_INT08U led)
              break;
     }
 }
+
+/*
+*********************************************************************************************************
+*********************************************************************************************************
+*                                              7 Segments FUNCTIONS
+*********************************************************************************************************
+*********************************************************************************************************
+*/
+
+/*
+*********************************************************************************************************
+*                                             BSP_7Segs_Init()
+*
+* Description : Initialize the I/O for the 7 Segments
+*
+* Argument(s) : none.
+*
+* Return(s)   : none.
+*
+* Caller(s)   : BSP_Init().
+*
+* Note(s)     : none.
+*********************************************************************************************************
+*/
+
+static  void  BSP_7Segs_Init (void)
+{
+    GPIO_InitTypeDef  gpio_init;
+
+
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+
+    gpio_init.GPIO_Pin   =  BSP_GPIOB_7_Seg_A | BSP_GPIOB_7_Seg_B | BSP_GPIOB_7_Seg_C | 
+      BSP_GPIOB_7_Seg_D | BSP_GPIOB_7_Seg_E | BSP_GPIOB_7_Seg_F;
+    gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
+    gpio_init.GPIO_Mode  = GPIO_Mode_Out_PP;
+    GPIO_Init(GPIOB, &gpio_init);
+    
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
+
+    gpio_init.GPIO_Pin   =  BSP_GPIOC_7_Seg_G;
+    gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
+    gpio_init.GPIO_Mode  = GPIO_Mode_Out_PP;
+    GPIO_Init(GPIOC, &gpio_init);
+}
+
+/*
+*********************************************************************************************************
+*                                             BSP_7Segs_On()
+*
+* Description : Turn ON any or all the LEDs on the board.
+*
+* Argument(s) : seg     The ID of the seg to control:
+*
+* Return(s)   : none.
+*
+* Caller(s)   : Application.
+*
+* Note(s)     : none.
+*********************************************************************************************************
+*/
+
+void  BSP_7Segs_On (CPU_INT08U seg)
+{
+   switch (seg) {
+        case 0:
+             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+                          |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_E|BSP_GPIOB_7_Seg_F);
+             break;
+        case 1:
+             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C);
+             break;
+        case 2:
+             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_D
+                          |BSP_GPIOB_7_Seg_E);
+             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        case 3:
+             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+                          |BSP_GPIOB_7_Seg_D);
+             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        case 4:
+             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_F);
+             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        case 5:
+             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_D
+                          |BSP_GPIOB_7_Seg_F);
+             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        case 6:
+             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_D
+                          |BSP_GPIOB_7_Seg_E|BSP_GPIOB_7_Seg_F);
+             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        case 7:
+             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+                          |BSP_GPIOB_7_Seg_F);
+             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        case 8:
+             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+                          |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_E|BSP_GPIOB_7_Seg_F);
+             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        case 9:
+             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+                          |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_F);
+             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        default:
+             break;
+    }
+}
+
+/*
+*********************************************************************************************************
+*                                              BSP_7Segs_Off()
+*
+* Description : Turn OFF any or all the segments on the board.
+*
+* Argument(s) : seg     The ID of the segment to control:
+*
+* Return(s)   : none.
+*
+* Caller(s)   : Application.
+*
+* Note(s)     : none.
+*********************************************************************************************************
+*/
+
+void  BSP_7Segs_Off (CPU_INT08U seg)
+{
+    switch (seg) {
+        case 0:
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+                          |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_E|BSP_GPIOB_7_Seg_F);
+             break;
+        case 1:
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C);
+             break;
+        case 2:
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_D
+                          |BSP_GPIOB_7_Seg_E);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        case 3:
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+                          |BSP_GPIOB_7_Seg_D);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        case 4:
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_F);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        case 5:
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_D
+                          |BSP_GPIOB_7_Seg_F);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        case 6:
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_D
+                          |BSP_GPIOB_7_Seg_E|BSP_GPIOB_7_Seg_F);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        case 7:
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+                          |BSP_GPIOB_7_Seg_F);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        case 8:
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+                          |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_E|BSP_GPIOB_7_Seg_F);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        case 9:
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+                          |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_F);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             break;
+        default:
+             break;
+    }
+}
+
 /*
 *********************************************************************************************************
 *********************************************************************************************************
