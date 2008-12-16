@@ -633,52 +633,52 @@ static  void  BSP_7Segs_Init (void)
 *********************************************************************************************************
 */
 
-void  BSP_7Segs_On (CPU_INT08U seg)
+void  BSP_7Segs (CPU_INT08U seg)
 {
    switch (seg) {
         case 0:
-             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
                           |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_E|BSP_GPIOB_7_Seg_F);
              break;
         case 1:
-             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C);
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C);
              break;
         case 2:
-             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_D
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_D
                           |BSP_GPIOB_7_Seg_E);
-             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
              break;
         case 3:
-             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
                           |BSP_GPIOB_7_Seg_D);
-             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
              break;
         case 4:
-             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_F);
-             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_F);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
              break;
         case 5:
-             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_D
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_D
                           |BSP_GPIOB_7_Seg_F);
-             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
              break;
         case 6:
-             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_D
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_D
                           |BSP_GPIOB_7_Seg_E|BSP_GPIOB_7_Seg_F);
-             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
              break;
         case 7:
-             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
                           |BSP_GPIOB_7_Seg_F);
-             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
              break;
         case 8:
-             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
                           |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_E|BSP_GPIOB_7_Seg_F);
-             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_G);
              break;
         case 9:
-             GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
                           |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_F);
              GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_G);
              break;
@@ -686,6 +686,8 @@ void  BSP_7Segs_On (CPU_INT08U seg)
              break;
     }
 }
+
+
 /*
 *********************************************************************************************************
 *********************************************************************************************************
