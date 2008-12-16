@@ -65,6 +65,7 @@
 #define  BSP_GPIOB_7_Seg_C                        DEF_BIT_01
 
 #define  BSP_GPIOB_SW_LED_RED                     DEF_BIT_14
+#define  BSP_GPIOB_SW_LED_BUTTON_RED              DEF_BIT_11
                                                                 /* -------------------- GPIOC PINS -------------------- */
 #define  BSP_GPIOC_POT                            DEF_BIT_04
 #define  BSP_GPIOC_SW_1                           DEF_BIT_07
@@ -129,6 +130,9 @@ static  void  BSP_7Segs_Init     (void);
 
 static  void  BSP_PB_Init      (void);
 
+static   void  BSP_SW_LED_Init(void);
+
+static  void  BSP_SW_LED_BUTTON_Init (void);
 
 /*
 *********************************************************************************************************
@@ -358,6 +362,28 @@ static  void  BSP_PB_Init (void)
     gpio_init.GPIO_Pin  = BSP_GPIOC_SW_1;
     gpio_init.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOC, &gpio_init);
+    
+    gpio_init.GPIO_Pin  = BSP_GPIOB_SW_LED_BUTTON_RED;
+    gpio_init.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+    GPIO_Init(GPIOB, &gpio_init);
+}
+
+void  BSP_SW_LED_RED_OFF (void)
+{
+  GPIO_ResetBits(GPIOB, BSP_GPIOB_SW_LED_RED);
+       
+}
+
+CPU_BOOLEAN  BSP_SW_LED_BUTTON_GetStatus (CPU_INT08U pb)
+{
+    CPU_BOOLEAN  status;
+    CPU_INT32U   pin;
+    status = DEF_FALSE;
+    pin = GPIO_ReadInputDataBit(GPIOB, BSP_GPIOB_SW_LED_BUTTON_RED);
+    if (pin == 0) {
+        status = DEF_TRUE;
+    }
+    return (status);
 }
 
 /*

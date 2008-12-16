@@ -217,6 +217,8 @@
 void  BSP_SW_LED_RED_ON (void);
 void  BSP_SW_LED_RED_OFF (void);
 void  BSP_SW_LED_Init (void);
+void  BSP_SW_LED_BUTTON_Init (void);
+CPU_BOOLEAN  BSP_SW_LED_BUTTON_GetStatus (CPU_INT08U pb);
 /*
 *********************************************************************************************************
 *                                           FUNCTION PROTOTYPES
