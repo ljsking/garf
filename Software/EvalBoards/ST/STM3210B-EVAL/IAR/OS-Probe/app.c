@@ -68,9 +68,11 @@
 static  OS_STK         App_TaskStartStk[APP_TASK_START_STK_SIZE];
 static  OS_STK         App_TaskUserIFStk[APP_TASK_USER_IF_STK_SIZE];
 static  OS_STK         App_TaskKbdStk[APP_TASK_KBD_STK_SIZE];
+static  OS_STK         App_Task7SegsStk[APP_TASK_7SEGS_STK_SIZE];
 
 static  OS_EVENT      *App_UserIFMbox;
 static  OS_EVENT      *App_ProcessMbox;
+static  OS_EVENT      *App_7SegsMbox;
 
 #if ((APP_OS_PROBE_EN   == DEF_ENABLED) && \
      (APP_PROBE_COM_EN  == DEF_ENABLED) && \
@@ -111,6 +113,7 @@ static  void  App_EventCreate      (void);
 static  void  App_TaskStart        (void        *p_arg);
 static  void  App_TaskUserIF       (void        *p_arg);
 static  void  App_TaskKbd          (void        *p_arg);
+static  void  App_Task7Segs        (void        *p_arg);
 
 #if ((APP_PROBE_COM_EN == DEF_ENABLED) || \
      (APP_OS_PROBE_EN  == DEF_ENABLED))
@@ -214,11 +217,12 @@ static  void  App_TaskStart (void *p_arg)
         
         case APP_SHOW_SEQ:
             now_stage++;
+            OSMboxPost(App_7SegsMbox, (void *)now_stage);
             for (i = 0; i < now_stage/*MakeRandomNumber()*/; i++) {
                 BSP_LED_On(3);
-                OSTimeDlyHMSM(0, 0, 1, 0);
+                OSTimeDlyHMSM(0, 0, 0, 500);
                 BSP_LED_Off(3);
-                OSTimeDlyHMSM(0, 0, 1, 0);
+                OSTimeDlyHMSM(0, 0, 0, 500);
             }
             remained_input = now_stage;
             nstate = APP_WAIT_INPUT;
@@ -235,13 +239,13 @@ static  void  App_TaskStart (void *p_arg)
             }
             else if(OS_ERR_TIMEOUT == err){
                 BSP_LED_On(3);
-                OSTimeDlyHMSM(0, 0, 0, 500);
+                OSTimeDlyHMSM(0, 0, 0, 250);
                 BSP_LED_Off(3);
-                OSTimeDlyHMSM(0, 0, 0, 500);
+                OSTimeDlyHMSM(0, 0, 0, 250);
                 BSP_LED_On(3);
-                OSTimeDlyHMSM(0, 0, 0, 500);
+                OSTimeDlyHMSM(0, 0, 0, 250);
                 BSP_LED_Off(3);
-                OSTimeDlyHMSM(0, 0, 0, 500);
+                OSTimeDlyHMSM(0, 0, 0, 250);
                 nstate = APP_IDLE;
             }
             break;
@@ -277,9 +281,11 @@ static  void  App_EventCreate (void)
 
     App_UserIFMbox = OSMboxCreate((void *)0);                   /* Create MBOX for communication between Kbd and UserIF.*/
     App_ProcessMbox = OSMboxCreate((void *)0);                   /* Create MBOX for communication between Kbd and Process.*/
+    App_7SegsMbox = OSMboxCreate((void *)0);                   /* Create MBOX for communication between Process and 7Segs.*/
 #if (OS_EVENT_NAME_SIZE > 12)
     OSEventNameSet(App_UserIFMbox, "User IF Mbox", &os_err);
     OSEventNameSet(App_ProcessMbox, "Process Mbox", &os_err);
+    OSEventNameSet(App_7SegsMbox, "7Segs Mbox", &os_err);
 #endif
 }
 
@@ -331,6 +337,20 @@ static  void  App_TaskCreate (void)
 
 #if (OS_TASK_NAME_SIZE >= 9)
     OSTaskNameSet(APP_TASK_KBD_PRIO, "Keyboard", &os_err);
+#endif
+    
+    os_err = OSTaskCreateExt((void (*)(void *)) App_Task7Segs,
+                             (void          * ) 0,
+                             (OS_STK        * )&App_Task7SegsStk[APP_TASK_7SEGS_STK_SIZE - 1],
+                             (INT8U           ) APP_TASK_7SEGS_PRIO,
+                             (INT16U          ) APP_TASK_7SEGS_PRIO,
+                             (OS_STK        * )&App_Task7SegsStk[0],
+                             (INT32U          ) APP_TASK_7SEGS_STK_SIZE,
+                             (void          * ) 0,
+                             (INT16U          )(OS_TASK_OPT_STK_CLR | OS_TASK_OPT_STK_CHK));
+
+#if (OS_TASK_NAME_SIZE >= 9)
+    OSTaskNameSet(APP_TASK_KBD_PRIO, "7 Segs", &os_err);
 #endif
 }
 
@@ -414,12 +434,45 @@ static  void  App_TaskUserIF (void *p_arg)
                 count++;
                 break;
             }
-            BSP_7Segs(count%10);
+            if(count%2)
+                BSP_LED_On(4);
+            else
+                BSP_LED_Off(4);
         }
     }
 }
 
+/*
+*********************************************************************************************************
+*                                            App_Task7Segs()
+*
+* Description : Updates 7 segments.
+*
+* Argument(s) : p_arg       Argument passed to 'App_TaskUserIF()' by 'OSTaskCreate()'.
+*
+* Return(s)   : none.
+*
+* Caller(s)   : This is a task.
+*
+* Note(s)     : none.
+*********************************************************************************************************
+*/
 
+static  void  App_Task7Segs (void *p_arg)
+{
+    CPU_INT32U   msg;
+    CPU_INT08U   err;
+    (void)p_arg;
+
+    OSTimeDlyHMSM(0, 0, 1, 0);
+
+    while (DEF_TRUE) {
+        msg = (CPU_INT32U)(OSMboxPend(App_7SegsMbox, OS_TICKS_PER_SEC / 10, &err));
+        if (err == OS_NO_ERR) {
+            BSP_7Segs(msg%10);
+        }
+    }
+}
 
 /*
 *********************************************************************************************************
