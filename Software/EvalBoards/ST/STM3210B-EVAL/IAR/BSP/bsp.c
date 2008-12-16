@@ -737,8 +737,7 @@ void  BSP_7Segs (CPU_INT08U seg)
              GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F);
              break;
         case 7:
-             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
-                          |BSP_GPIOB_7_Seg_G);
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C);
              GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F);
              break;
         case 8:
@@ -749,7 +748,7 @@ void  BSP_7Segs (CPU_INT08U seg)
         case 9:
              GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
                           |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_G);
-             GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_F);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F);
              break;
         default:
              break;

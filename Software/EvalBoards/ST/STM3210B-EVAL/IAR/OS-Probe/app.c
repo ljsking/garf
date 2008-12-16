@@ -237,8 +237,8 @@ static  void  App_TaskStart (void *p_arg)
                     nstate = APP_SHOW_SEQ;
                 else
                     nstate = APP_WAIT_INPUT;
-            }
-            else if(OS_ERR_TIMEOUT == err){
+              
+            }else if(OS_ERR_TIMEOUT == err){
                 BSP_LED_On(3);
                 OSTimeDlyHMSM(0, 0, 0, 250);
                 BSP_LED_Off(3);
@@ -385,11 +385,8 @@ static  void  App_TaskKbd (void *p_arg)
         b1 = BSP_PB_GetStatus(0);
 
         if ((b1 == DEF_TRUE) && (b1_prev == DEF_FALSE)) {
-            OSMboxPost(App_UserIFMbox, (void *)0);
             OSMboxPost(App_ProcessMbox, (void *)0);
-        }
-        else if ((b1 == DEF_FALSE) && (b1_prev == DEF_TRUE)){
-            OSMboxPost(App_UserIFMbox, (void *)1);
+            OSMboxPost(App_UserIFMbox, (void *)0);
         }
         b1_prev = b1;
         OSTimeDlyHMSM(0, 0, 0, 20);
@@ -427,7 +424,7 @@ static  void  App_TaskUserIF (void *p_arg)
 
 
     while (DEF_TRUE) {
-        msg = (CPU_INT08U *)(OSMboxPend(App_UserIFMbox, OS_TICKS_PER_SEC / 10, &err));
+        msg = (CPU_INT08U *)(OSMboxPend(App_UserIFMbox, 0, &err));
         if (err == OS_NO_ERR) {
             nstate = (CPU_INT32U)msg;
             switch (nstate) {
