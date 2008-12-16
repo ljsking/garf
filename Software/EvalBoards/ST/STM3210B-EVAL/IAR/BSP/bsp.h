@@ -212,13 +212,12 @@
 *********************************************************************************************************
 */
 
+#define  BSP_PUSH_BUTTON_NONE                       DEF_BIT_NONE
+#define  BSP_PUSH_BUTTON_1                          DEF_BIT_00
+#define  BSP_PUSH_BUTTON_2                          DEF_BIT_01
+#define  BSP_PUSH_BUTTON_3                          DEF_BIT_02
+#define  BSP_PUSH_BUTTON_4                          DEF_BIT_03
 
-////////////////////////-----------------------JW
-void  BSP_SW_LED_RED_ON (void);
-void  BSP_SW_LED_RED_OFF (void);
-void  BSP_SW_LED_Init (void);
-void  BSP_SW_LED_BUTTON_Init (void);
-CPU_BOOLEAN  BSP_SW_LED_BUTTON_GetStatus (CPU_INT08U pb);
 /*
 *********************************************************************************************************
 *                                           FUNCTION PROTOTYPES
@@ -335,7 +334,7 @@ void         BSP_7Segs                  (CPU_INT08U     seg);
 *********************************************************************************************************
 */
 
-CPU_BOOLEAN  BSP_PB_GetStatus            (CPU_INT08U     pb);
+CPU_INT32U  BSP_PB_GetStatus            ();
 
 /*
 *********************************************************************************************************

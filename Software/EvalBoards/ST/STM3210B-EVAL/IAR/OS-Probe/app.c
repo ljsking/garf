@@ -393,38 +393,26 @@ static  void  App_TaskCreate (void)
 
 static  void  App_TaskKbd (void *p_arg)
 {
-    CPU_BOOLEAN  b1_prev;
-    CPU_BOOLEAN  b1;
-    CPU_BOOLEAN  b2_prev;
-    CPU_BOOLEAN  b2;
-    CPU_BOOLEAN  b3_prev;
-    CPU_BOOLEAN  b3;
-    CPU_BOOLEAN  b4_prev;
-    CPU_BOOLEAN  b4;
+    CPU_BOOLEAN  b_prev;
+    CPU_BOOLEAN  b;
 
     (void)p_arg;
 
-    b1_prev = DEF_FALSE;
+    b_prev = DEF_FALSE;
 
     while (DEF_TRUE) {
-        b1 = BSP_PB_GetStatus(0);
-        b2 = BSP_PB_GetStatus(1);
-        b3 = BSP_PB_GetStatus(2);
-        b4 = BSP_PB_GetStatus(3);
-
-        if ((b1 == DEF_TRUE) && (b1_prev == DEF_FALSE)) {
+        b = BSP_PB_GetStatus();
+        
+        if (DEF_BIT_IS_SET(b, BSP_PUSH_BUTTON_1) && DEF_BIT_IS_CLR(b_prev, BSP_PUSH_BUTTON_1)) {
             OSMboxPost(App_ProcessMbox, (void *)0);
-        }else if((b2 == DEF_TRUE) && (b2_prev == DEF_FALSE)){
+        }else if(DEF_BIT_IS_SET(b, BSP_PUSH_BUTTON_2) && DEF_BIT_IS_CLR(b_prev, BSP_PUSH_BUTTON_2)){
             OSMboxPost(App_ProcessMbox, (void *)1);
-        }else if((b3 == DEF_TRUE) && (b3_prev == DEF_FALSE)){
+        }else if(DEF_BIT_IS_SET(b, BSP_PUSH_BUTTON_3) && DEF_BIT_IS_CLR(b_prev, BSP_PUSH_BUTTON_3)){
             OSMboxPost(App_ProcessMbox, (void *)2);
-        }else if((b4 == DEF_TRUE) && (b4_prev == DEF_FALSE)){
+        }else if(DEF_BIT_IS_SET(b, BSP_PUSH_BUTTON_4) && DEF_BIT_IS_CLR(b_prev, BSP_PUSH_BUTTON_4)){
             OSMboxPost(App_ProcessMbox, (void *)3);
         }
-        b1_prev = b1;
-        b2_prev = b2;
-        b3_prev = b3;
-        b4_prev = b4;
+        b_prev = b;
         OSTimeDlyHMSM(0, 0, 0, 20);
     }
 }

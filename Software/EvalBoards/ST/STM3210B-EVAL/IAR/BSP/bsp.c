@@ -130,10 +130,6 @@ static  void  BSP_7Segs_Init     (void);
 
 static  void  BSP_PB_Init      (void);
 
-static   void  BSP_SW_LED_Init(void);
-
-static  void  BSP_SW_LED_BUTTON_Init (void);
-
 /*
 *********************************************************************************************************
 *                                     LOCAL CONFIGURATION ERRORS
@@ -358,32 +354,15 @@ static  void  BSP_PB_Init (void)
 {
     GPIO_InitTypeDef  gpio_init;
 
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
-    gpio_init.GPIO_Pin  = BSP_GPIOC_SW_1;
-    gpio_init.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-    GPIO_Init(GPIOC, &gpio_init);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB|RCC_APB2Periph_GPIOC, ENABLE);
     
     gpio_init.GPIO_Pin  = BSP_GPIOB_SW_LED_BUTTON_RED;
     gpio_init.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOB, &gpio_init);
-}
-
-void  BSP_SW_LED_RED_OFF (void)
-{
-  GPIO_ResetBits(GPIOB, BSP_GPIOB_SW_LED_RED);
-       
-}
-
-CPU_BOOLEAN  BSP_SW_LED_BUTTON_GetStatus (CPU_INT08U pb)
-{
-    CPU_BOOLEAN  status;
-    CPU_INT32U   pin;
-    status = DEF_FALSE;
-    pin = GPIO_ReadInputDataBit(GPIOB, BSP_GPIOB_SW_LED_BUTTON_RED);
-    if (pin == 0) {
-        status = DEF_TRUE;
-    }
-    return (status);
+    
+    gpio_init.GPIO_Pin  = BSP_GPIOC_SW_1;
+    gpio_init.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+    GPIO_Init(GPIOC, &gpio_init);
 }
 
 /*
@@ -391,10 +370,6 @@ CPU_BOOLEAN  BSP_SW_LED_BUTTON_GetStatus (CPU_INT08U pb)
 *                                           BSP_PB_GetStatus()
 *
 * Description : Get the status of a push button on the board.
-*
-* Argument(s) : pb      The ID of the push button to probe
-*
-*                       1    probe the user push button
 *
 * Return(s)   : DEF_FALSE   if the push button is pressed.
 *               DEF_TRUE    if the push button is not pressed.
@@ -405,14 +380,21 @@ CPU_BOOLEAN  BSP_SW_LED_BUTTON_GetStatus (CPU_INT08U pb)
 *********************************************************************************************************
 */
 
-CPU_BOOLEAN  BSP_PB_GetStatus (CPU_INT08U pb)
+CPU_INT32U  BSP_PB_GetStatus ()
 {
     CPU_BOOLEAN  status;
     CPU_INT32U   pin;
-    status = DEF_FALSE;
-    pin = GPIO_ReadInputDataBit(GPIOC, BSP_GPIOC_SW_1);
+    
+    status = 0;
+    
+    pin    = GPIO_ReadInputDataBit(GPIOC, BSP_GPIOC_SW_1);
     if (pin == 0) {
-        status = DEF_TRUE;
+        status |= BSP_PUSH_BUTTON_1;
+    }
+    
+    pin    = GPIO_ReadInputDataBit(GPIOB, BSP_GPIOB_SW_LED_BUTTON_RED);
+    if (pin == 0) {
+        status |= BSP_PUSH_BUTTON_2;
     }
     return (status);
 }
@@ -494,11 +476,9 @@ void  BSP_LED_On (CPU_INT08U led)
         case 3:
              GPIO_SetBits(GPIOC, BSP_GPIOC_LED3);
              break;
-
         case 4:
              GPIO_SetBits(GPIOC, BSP_GPIOC_LED4);
              break;
-
         default:
              break;
     }
