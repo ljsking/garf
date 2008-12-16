@@ -2,7 +2,7 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>2191074548</fileChecksum>
+  <fileChecksum>4240366061</fileChecksum>
   <configuration>
     <name>Flash</name>
     <outputs>
@@ -100,9 +100,105 @@
       <file>$PROJ_DIR$\Flash\Obj\probe_rs232c.o</file>
       <file>$PROJ_DIR$\Flash\Obj\os_dbg.pbi</file>
       <file>$PROJ_DIR$\Flash\Obj\os_time.o</file>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
       <file>$PROJ_DIR$\Flash\Obj\lcd.pbi</file>
       <file>$PROJ_DIR$\Flash\Obj\stm32f10x_exti.o</file>
       <file>$PROJ_DIR$\Flash\Obj\stm32f10x_usart.pbi</file>
+=======
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_dma.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_exti.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_flash.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_gpio.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_i2c.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_iwdg.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_lib.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_map.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_nvic.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Source\os_tmr.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Source\ucos_ii.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-Probe\Target\Communication\Generic\OS\uCOS-II\probe_com_os.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-Probe\Target\Communication\Generic\RS-232\OS\uCOS-II\probe_rs232_os.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-Probe\Target\Communication\Generic\RS-232\Ports\ST\STM32\probe_rs232c.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-Probe\Target\Communication\Generic\RS-232\Ports\ST\STM32\probe_rs232c.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-Probe\Target\Communication\Generic\RS-232\Source\probe_rs232.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-Probe\Target\Communication\Generic\RS-232\Source\probe_rs232.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-Probe\Target\Communication\Generic\Source\probe_com.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-Probe\Target\Communication\Generic\Source\probe_com.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-Probe\Target\Plugins\uCOS-II\os_probe.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-Probe\Target\Plugins\uCOS-II\os_probe.h</file>
+      <file>$PROJ_DIR$\probe_com_cfg.h</file>
+      <file>$PROJ_DIR$\os_cfg.h</file>
+      <file>$PROJ_DIR$\app_vect_v5.c</file>
+      <file>$PROJ_DIR$\includes.h</file>
+      <file>$PROJ_DIR$\app_cfg.h</file>
+      <file>$PROJ_DIR$\app.c</file>
+      <file>$PROJ_DIR$\..\BSP\bsp_int.c</file>
+      <file>$PROJ_DIR$\..\BSP\bsp_periph.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_can.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_dma.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_exti.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_flash.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_gpio.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_i2c.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_iwdg.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_lib.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_nvic.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_pwr.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_rcc.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_rtc.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_spi.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_tim.c</file>
+      <file>$PROJ_DIR$\..\BSP\fonts.h</file>
+      <file>$PROJ_DIR$\..\BSP\STM32_Flash.icf</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_pwr.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_rcc.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_rtc.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_spi.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_tim.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_systick.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_type.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_usart.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_wwdg.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_adc.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_bkp.c</file>
+      <file>$PROJ_DIR$\Flash\Obj\lcd.pbi</file>
+      <file>$PROJ_DIR$\Flash\Obj\stm32f10x_exti.o</file>
+      <file>$PROJ_DIR$\Flash\Obj\stm32f10x_usart.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_systick.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_usart.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\src\stm32f10x_wwdg.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-CPU\ARM-Cortex-M3\IAR\cpu.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-CPU\ARM-Cortex-M3\IAR\cpu_a.asm</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-CPU\ARM-Cortex-M3\IAR\cpu_c.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-CPU\cpu_def.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-LIB\Ports\ARM-Cortex-M3\IAR\lib_mem_a.asm</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-LIB\lib_def.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-LIB\lib_mem.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-LIB\lib_mem.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-LIB\lib_str.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uC-LIB\lib_str.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Ports\arm-cortex-m3\Generic\IAR\os_cpu.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Ports\ARM-Cortex-M3\Generic\IAR\os_cpu_a.asm</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Ports\ARM-Cortex-M3\Generic\IAR\os_cpu_c.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Ports\ARM-Cortex-M3\Generic\IAR\os_dbg.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Source\os_core.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Source\os_flag.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Source\os_mbox.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Source\os_mem.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Source\os_mutex.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Source\os_q.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Source\os_sem.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Source\os_task.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Source\os_time.c</file>
+      <file>$PROJ_DIR$\..\BSP\lcd.c</file>
+      <file>$PROJ_DIR$\..\BSP\lcd.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\cortexm3_macro.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_adc.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_bkp.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_can.h</file>
+      <file>$PROJ_DIR$\Flash\List\os_time.lst</file>
+      <file>$PROJ_DIR$\Flash\Obj\util.pbi</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
       <file>$PROJ_DIR$\Flash\List\os_tmr.lst</file>
       <file>$PROJ_DIR$\Flash\List\os_time.lst</file>
       <file>$PROJ_DIR$\Flash\List\cpu_c.lst</file>
@@ -147,6 +243,7 @@
       <file>$PROJ_DIR$\Flash\List\os_cpu_c.lst</file>
       <file>$PROJ_DIR$\Flash\List\app_vect_v5.lst</file>
       <file>$PROJ_DIR$\Flash\List\os_dbg.lst</file>
+      <file>$PROJ_DIR$\util.c</file>
       <file>$PROJ_DIR$\Flash\List\stm32f10x_bkp.lst</file>
       <file>$PROJ_DIR$\Flash\List\lcd.lst</file>
       <file>$TOOLKIT_DIR$\inc\yvals.h</file>
@@ -167,6 +264,7 @@
       <file>$TOOLKIT_DIR$\inc\xtls.h</file>
       <file>$TOOLKIT_DIR$\inc\xmtx.h</file>
       <file>$TOOLKIT_DIR$\inc\stdlib.h</file>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
       <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Source\os_tmr.c</file>
       <file>$PROJ_DIR$\..\..\..\..\..\uCOS-II\Source\ucos_ii.h</file>
       <file>$PROJ_DIR$\..\..\..\..\..\uC-Probe\Target\Communication\Generic\OS\uCOS-II\probe_com_os.c</file>
@@ -256,6 +354,35 @@
       <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_usart.h</file>
       <file>$PROJ_DIR$\..\..\..\..\..\CPU\ST\STM32\inc\stm32f10x_wwdg.h</file>
       <file>$PROJ_DIR$\..\BSP\STM32_Flash.icf</file>
+=======
+      <file>$TOOLKIT_DIR$\inc\xlocaleuse.h</file>
+      <file>$PROJ_DIR$\Flash\List\stm32f10x_i2c.lst</file>
+      <file>$TOOLKIT_DIR$\inc\xencoding_limits.h</file>
+      <file>$TOOLKIT_DIR$\inc\DLib_Threads.h</file>
+      <file>$TOOLKIT_DIR$\inc\string.h</file>
+      <file>$TOOLKIT_DIR$\inc\DLib_Product_string.h</file>
+      <file>$PROJ_DIR$\Flash\List\os_task.lst</file>
+      <file>$PROJ_DIR$\Flash\List\STM3210B-EVAL-OS-Probe-v5.map</file>
+      <file>$PROJ_DIR$\Flash\List\os_flag.lst</file>
+      <file>$TOOLKIT_DIR$\inc\xlocale_c.h</file>
+      <file>$PROJ_DIR$\Flash\List\util.lst</file>
+      <file>$PROJ_DIR$\Flash\List\os_core.lst</file>
+      <file>$PROJ_DIR$\Flash\List\stm32f10x_rtc.lst</file>
+      <file>$TOOLKIT_DIR$\inc\wchar.h</file>
+      <file>$PROJ_DIR$\Flash\List\stm32f10x_adc.lst</file>
+      <file>$PROJ_DIR$\Flash\Obj\util.o</file>
+      <file>$PROJ_DIR$\Flash\List\stm32f10x_pwr.lst</file>
+      <file>$PROJ_DIR$\Flash\List\bsp_int.lst</file>
+      <file>$PROJ_DIR$\Flash\List\os_q.lst</file>
+      <file>$PROJ_DIR$\Flash\List\stm32f10x_exti.lst</file>
+      <file>$PROJ_DIR$\Flash\List\os_mbox.lst</file>
+      <file>$PROJ_DIR$\Flash\List\os_sem.lst</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tl_in.a</file>
+      <file>$PROJ_DIR$\Flash\List\probe_rs232_os.lst</file>
+      <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+      <file>$PROJ_DIR$\Flash\List\stm32f10x_nvic.lst</file>
+      <file>$PROJ_DIR$\util.h</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
     </outputs>
     <file>
       <name>$PROJ_DIR$\..\BSP\bsp.c</name>
@@ -266,17 +393,47 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 101 83</file>
+=======
+          <file> 190 83</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 1 186 189 191 193 18 172 160 8 143 104 105 110 111 106 107 133 158 159 108 117 120 135 157 48 2 246 237 238 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247 226 162 15 173 214</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 1 186 189 191 193 18 172 160 8 143 104 9 105 110 111 106 107 133 158 159 108 117 120 135 157 48 2 246 237 238 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247 226 162 15 173 214</file>
+=======
+          <file> 12 156 159 161 163 119 165 227 4 209 193 194 230 231 195 196 198 225 226 228 237 241 200 224 76 13 145 100 101 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180 104 116 166 114</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 12 156 159 161 163 119 165 227 4 209 193 0 194 230 231 195 196 198 225 226 228 237 241 200 224 76 13 145 100 101 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180 104 116 166 114</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 74 235</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Flash\Obj\STM3210B-EVAL-OS-Probe-v5-2.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 56 57 58 26 33 44 150 46 62 50 14 92 71 70 90 72 80 61 42 73 8 41 54 67 84 19 32 39 31 43 36 75 69 35 89 10 53 85 5 79 27 152 186</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -284,8 +441,13 @@
       <name>$PROJ_DIR$\app_vect_v5.c</name>
       <outputs>
         <tool>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <name>BICOMP</name>
           <file> 29</file>
+=======
+          <name>ILINK</name>
+          <file> 235</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
         <tool>
           <name>ICCARM</name>
@@ -294,12 +456,17 @@
       </outputs>
       <inputs>
         <tool>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <name>BICOMP</name>
           <file> 17 48 8 143 104 105 110 111 106 112 113 107 133 158 159 160 108 117 120 132 162 18 15 173 186 189 191 193 172 135 157 2 246 237 238 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247 226 1 214 212 14 210 166</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 17 48 8 143 104 9 105 110 111 106 112 113 107 133 158 159 160 108 117 120 132 162 18 15 173 186 189 191 193 172 135 157 2 246 237 238 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247 226 1 214 212 14 210 166</file>
+=======
+          <name>ILINK</name>
+          <file> 216 37 55 83 82 64 68 40 28 87 52 47 88 51 24 25 60 45 65 16 2 22 23 17 93 59 9 11 21 15 91 81 49 151 38 29 77 66 18 30 78 6 86 3 48 34 243 223 252 250</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -312,17 +479,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 221 52</file>
+=======
+          <file> 187 59</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 17 48 8 143 104 105 110 111 106 112 113 107 133 158 159 160 108 117 120 132 162 18 15 173 186 189 191 193 172 135 157 2 246 237 238 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247 226 1 214 212 14 210 166</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 17 48 8 143 104 9 105 110 111 106 112 113 107 133 158 159 160 108 117 120 132 162 18 15 173 186 189 191 193 172 135 157 2 246 237 238 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247 226 1 214 212 14 210 166</file>
+=======
+          <file> 104 119 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104 119 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -335,17 +514,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 123 82</file>
+=======
+          <file> 218 11</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 1 186 189 191 193 18 172 160 8 143 104 105 110 111 106 107 133 158 159 108 117 120 135 157 48 2 246 237 238 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247 226 162 15 173 214</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 1 186 189 191 193 18 172 160 8 143 104 9 105 110 111 106 107 133 158 159 108 117 120 135 157 48 2 246 237 238 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247 226 162 15 173 214</file>
+=======
+          <file> 112 156 159 161 163 119 115 104 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 112 156 159 161 163 119 115 104 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -358,17 +549,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 100 36</file>
+=======
+          <file> 251 15</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 1 186 189 191 193 18 172 160 8 143 104 105 110 111 106 107 133 158 159 108 117 120 135 157 48 2 246 237 238 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247 226 162 15 173 214</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 1 186 189 191 193 18 172 160 8 143 104 9 105 110 111 106 107 133 158 159 108 117 120 135 157 48 2 246 237 238 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247 226 162 15 173 214</file>
+=======
+          <file> 112 156 159 161 163 119 115 110 108 104 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 112 156 159 161 163 119 115 110 108 104 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -389,14 +592,24 @@
           <file> 115</file>
         </tool>
         <tool>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <name>OBJCOPY</name>
           <file> 12</file>
+=======
+          <name>ICCARM</name>
+          <file> 211 91</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <name>ILINK</name>
           <file> 249 52 27 83 82 36 40 55 71 87 24 62 88 23 67 68 32 60 37 217 13 65 66 218 93 31 11 6 222 216 91 81 64 95 53 72 49 38 219 73 50 5 86 10 63 77 156 130 128</file>
+=======
+          <name>BICOMP</name>
+          <file> 110 112 156 159 161 163 119 115 108 118 76 4 209 193 194 230 231 195 232 233 196 198 225 226 227 228 237 241 197 104 116 166 165 200 224 13 145 100 101 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180 12 114</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -404,8 +617,13 @@
       <name>[ROOT_NODE]</name>
       <outputs>
         <tool>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <name>ILINK</name>
           <file> 46 115</file>
+=======
+          <name>ICCARM</name>
+          <file> 110 112 156 159 161 163 119 115 108 118 76 4 209 193 0 194 230 231 195 232 233 196 198 225 226 227 228 237 241 197 104 116 166 165 200 224 13 145 100 101 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180 12 114</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
     </file>
@@ -418,17 +636,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 97 31</file>
+=======
+          <file> 217 21</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 162 18 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 162 18 15 173</file>
+=======
+          <file> 112 156 159 161 163 119 115 110 108</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 112 156 159 161 163 119 115 110 108</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -441,17 +671,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 151 6</file>
+=======
+          <file> 210 9</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 212 186 189 191 193 18 14 162 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 212 186 189 191 193 18 14 162 15 173</file>
+=======
+          <file> 112 156 159 161 163 119 115</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 112 156 159 161 163 119 115</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -464,17 +706,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 129 216</file>
+=======
+          <file> 191 2</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 212 186 189 191 193 18 14 210 166 162 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 212 186 189 191 193 18 14 210 166 162 15 173</file>
+=======
+          <file> 114 119 104 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 114 119 104 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -487,17 +741,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 145 91</file>
+=======
+          <file> 204 55</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 210 212 186 189 191 193 18 14 166 17 48 8 143 104 105 110 111 106 112 113 107 133 158 159 160 108 117 120 132 162 15 173 172 135 157 2 246 237 238 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247 226 1 214</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 210 212 186 189 191 193 18 14 166 17 48 8 143 104 9 105 110 111 106 112 113 107 133 158 159 160 108 117 120 132 162 15 173 172 135 157 2 246 237 238 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247 226 1 214</file>
+=======
+          <file> 118 76 4 209 193 194 230 231 195 232 233 196 198 225 226 227 228 237 241 197 104 119 116 166 156 159 161 163 165 200 224 13 145 100 101 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180 12 114 112 115 110 108</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 118 76 4 209 193 0 194 230 231 195 232 233 196 198 225 226 227 228 237 241 197 104 119 116 166 156 159 161 163 165 200 224 13 145 100 101 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180 12 114 112 115 110 108</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -516,11 +782,19 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 162 18 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 162 18 15 173</file>
+=======
+          <file> 118 76 4 209 193 194 230 231 195 232 233 196 198 225 226 227 228 237 241 197 104 119 116 166 156 159 161 163 165 200 224 13 145 100 101 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180 12 114 112 115 110 108 254</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 118 76 4 209 193 0 194 230 231 195 232 233 196 198 225 226 227 228 237 241 197 104 119 116 166 156 159 161 163 165 200 224 13 145 100 101 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180 12 114 112 115 110 108 254</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -533,17 +807,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 124 65</file>
+=======
+          <file> 245 82</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 162 18 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 162 18 15 173</file>
+=======
+          <file> 12 156 159 161 163 119 165 227 4 209 193 194 230 231 195 196 198 225 226 228 237 241 200 224 76 13 145 100 101 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180 104 116 166 114</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 12 156 159 161 163 119 165 227 4 209 193 0 194 230 231 195 196 198 225 226 228 237 241 200 224 76 13 145 100 101 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180 104 116 166 114</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -556,17 +842,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 127 66</file>
+=======
+          <file> 189 64</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 162 18 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 162 18 15 173</file>
+=======
+          <file> 12 156 159 161 163 119 165 227 4 209 193 194 230 231 195 196 198 225 226 228 237 241 200 224 76 13 145 100 101 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180 104 116 166 114</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 12 156 159 161 163 119 165 227 4 209 193 0 194 230 231 195 196 198 225 226 228 237 241 200 224 76 13 145 100 101 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180 104 116 166 114</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -579,17 +877,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 114 218</file>
+=======
+          <file> 247 151</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 162 18 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 162 18 15 173</file>
+=======
+          <file> 95 101 13 145 181</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 95 101 13 145 181</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -602,17 +912,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 98 93</file>
+=======
+          <file> 214 38</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 162 18 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 162 18 15 173</file>
+=======
+          <file> 96 101 13 145 181</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 96 101 13 145 181</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -634,17 +956,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 138 67</file>
+=======
+          <file> 202 29</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 162 18 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 162 18 15 173</file>
+=======
+          <file> 97 101 13 145 181 140</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 97 101 13 145 181 140</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -657,17 +991,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 140 68</file>
+=======
+          <file> 229 77</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 162 18 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 162 18 15 173</file>
+=======
+          <file> 98 101 13 145 181 140</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 98 101 13 145 181 140</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -680,17 +1026,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 118 88</file>
+=======
+          <file> 192 66</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 162 18 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 162 18 15 173</file>
+=======
+          <file> 100 101 13 145 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 100 101 13 145 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -703,17 +1061,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 116 32</file>
+=======
+          <file> 253 18</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 162 18 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 162 18 15 173</file>
+=======
+          <file> 102 101 13 145 181</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 102 101 13 145 181</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -726,17 +1096,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 126 60</file>
+=======
+          <file> 244 30</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 162 18 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 162 18 15 173</file>
+=======
+          <file> 139 101 13 145 181 140</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 139 101 13 145 181 140</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -749,17 +1131,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 134 37</file>
+=======
+          <file> 222 78</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 162 18 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 162 18 15 173</file>
+=======
+          <file> 140 101 13 145 181</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 140 101 13 145 181</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -772,17 +1166,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 153 86</file>
+=======
+          <file> 240 6</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 243 238 2 246 227 241</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 243 238 2 246 227 241</file>
+=======
+          <file> 141 101 13 145 181</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 141 101 13 145 181</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -795,17 +1201,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 152 10</file>
+=======
+          <file> 220 86</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 244 238 2 246 227</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 244 238 2 246 227</file>
+=======
+          <file> 142 101 13 145 181 140</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 142 101 13 145 181 140</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -818,17 +1236,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 136 63</file>
+=======
+          <file> 201 48</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 245 238 2 246 227 241</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 245 238 2 246 227 241</file>
+=======
+          <file> 143 101 13 145 181 140</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 143 101 13 145 181 140</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -841,17 +1271,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 146 77</file>
+=======
+          <file> 242 81</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 247 238 2 246 227 241</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 247 238 2 246 227 241</file>
+=======
+          <file> 182 101 13 145 181 140</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 182 101 13 145 181 140</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -873,17 +1315,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 99 55</file>
+=======
+          <file> 207 49</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 186 189 191</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 186 189 191</file>
+=======
+          <file> 183 101 13 145 181 140</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 183 101 13 145 181 140</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -905,17 +1359,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 147 87</file>
+=======
+          <file> 219 3</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 193 186 189 191 18</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 193 186 189 191 18</file>
+=======
+          <file> 144 101 13 145 181</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 144 101 13 145 181</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -924,21 +1390,37 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 34</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 154 62</file>
+=======
+          <file> 152</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 212 34</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 172 186 189 191 18 160 8 143 104 105 110 111 106 107 133 158 159 108 117 120 135 157 48</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 172 186 189 191 18 160 8 143 104 9 105 110 111 106 107 133 158 159 108 117 120 135 157 48</file>
+=======
+          <file> 146 101 13 145 181 140</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 146 101 13 145 181 140</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -951,17 +1433,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 121 81</file>
+=======
+          <file> 188 40</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 228 238 2 246 227 241</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 228 238 2 246 227 241</file>
+=======
+          <file> 156 159 161</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 156 159 161</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -974,17 +1468,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 141 64</file>
+=======
+          <file> 213 87</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 229 238 2 246 227 241</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 229 238 2 246 227 241</file>
+=======
+          <file> 163 156 159 161 119</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 163 156 159 161 119</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -997,17 +1503,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 125 95</file>
+=======
+          <file> 221 47</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 232 238 2 246 227</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 232 238 2 246 227</file>
+=======
+          <file> 165 156 159 161 119 227 4 209 193 194 230 231 195 196 198 225 226 228 237 241 200 224 76</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 165 156 159 161 119 227 4 209 193 0 194 230 231 195 196 198 225 226 228 237 241 200 224 76</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -1020,17 +1538,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 148 53</file>
+=======
+          <file> 203 24</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 233 238 2 246 227</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 233 238 2 246 227</file>
+=======
+          <file> 104 119 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104 119 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -1043,17 +1573,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 137 72</file>
+=======
+          <file> 205 25</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 234 238 2 246 227 241</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 234 238 2 246 227 241</file>
+=======
+          <file> 104 119 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104 119 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -1066,17 +1608,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 109 49</file>
+=======
+          <file> 239 88</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 235 238 2 246 227 241</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 235 238 2 246 227 241</file>
+=======
+          <file> 104 119 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104 119 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -1089,17 +1643,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 103 38</file>
+=======
+          <file> 236 60</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 237 238 2 246 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 237 238 2 246 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247</file>
+=======
+          <file> 104 119 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104 119 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -1112,17 +1678,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 131 219</file>
+=======
+          <file> 248 45</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 239 238 2 246 227</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 239 238 2 246 227</file>
+=======
+          <file> 104 119 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104 119 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -1135,17 +1713,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 122 73</file>
+=======
+          <file> 199 65</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 240 238 2 246 227 241</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 240 238 2 246 227 241</file>
+=======
+          <file> 104 119 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104 119 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -1158,17 +1748,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 155 50</file>
+=======
+          <file> 215 16</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 241 238 2 246 227</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 241 238 2 246 227</file>
+=======
+          <file> 104 119 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104 119 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -1181,17 +1783,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 119 5</file>
+=======
+          <file> 246 22</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 242 238 2 246 227</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 242 238 2 246 227</file>
+=======
+          <file> 104 119 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104 119 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -1204,17 +1818,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 150 222</file>
+=======
+          <file> 249 23</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 212 186 189 191 193 18 14 210 166</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 212 186 189 191 193 18 14 210 166</file>
+=======
+          <file> 104 119 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104 119 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -1227,17 +1853,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 144 11</file>
+=======
+          <file> 234 17</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 212 186 189 191 193 18 14</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 212 186 189 191 193 18 14</file>
+=======
+          <file> 104 119 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104 119 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -1250,17 +1888,29 @@
         </tool>
         <tool>
           <name>ICCARM</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 102 13</file>
+=======
+          <file> 185 93</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 214 18 162 15 173</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 214 18 162 15 173</file>
+=======
+          <file> 104 119 116 166</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 104 119 116 166</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
@@ -1269,21 +1919,60 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 94</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 142 71</file>
+=======
+          <file> 150</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 208 28</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
+<<<<<<< HEAD:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
           <file> 224 237 238 2 246 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247 226</file>
         </tool>
         <tool>
           <name>ICCARM</name>
           <file> 224 237 238 2 246 227 228 229 232 233 234 235 239 240 241 242 243 244 245 247 226</file>
+=======
+          <file> 137 100 101 13 145 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 137 100 101 13 145 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\util.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 186</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 238 243</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 118 76 4 209 193 194 230 231 195 232 233 196 198 225 226 227 228 237 241 197 104 119 116 166 156 159 161 163 165 200 224 13 145 100 101 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180 12 114 112 115 110 108</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 118 76 4 209 193 0 194 230 231 195 232 233 196 198 225 226 227 228 237 241 197 104 119 116 166 156 159 161 163 165 200 224 13 145 100 101 181 182 183 95 96 97 98 102 139 140 141 142 144 143 146 180 12 114 112 115 110 108</file>
+>>>>>>> origin/master:Software/EvalBoards/ST/STM3210B-EVAL/IAR/OS-Probe/STM3210B-EVAL-OS-Probe-v5-2.dep
         </tool>
       </inputs>
     </file>
