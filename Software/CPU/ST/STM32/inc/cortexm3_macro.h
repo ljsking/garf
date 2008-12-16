@@ -1,6 +1,6 @@
 /******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
 * File Name          : cortexm3_macro.h
-* Author             : MCD Application Team
+* Author             : MCD Application Team 
 * Version            : V2.0
 * Date               : 05/23/2008
 * Description        : Header file for cortexm3_macro.s.
