@@ -231,12 +231,7 @@ static  void  App_TaskStart (void *p_arg)
         case APP_WAIT_INPUT:
             OSMboxPend(App_ProcessMbox, OS_TICKS_PER_SEC*3, &err);
             if(OS_ERR_NONE == err){
-                remained_input--;
-                if(0 == remained_input)
-                    nstate = APP_SHOW_SEQ;
-                else
-                    nstate = APP_WAIT_INPUT;
-              
+                nstate = APP_RECOGNIZE;
             }else if(OS_ERR_TIMEOUT == err){
                 BSP_LED_On(3);
                 OSTimeDlyHMSM(0, 0, 0, 250);
@@ -248,6 +243,14 @@ static  void  App_TaskStart (void *p_arg)
                 OSTimeDlyHMSM(0, 0, 0, 250);
                 nstate = APP_IDLE;
             }
+            break;
+          
+        case APP_RECOGNIZE:
+            remained_input--;
+            if(0 == remained_input)
+                nstate = APP_SHOW_SEQ;
+            else
+                nstate = APP_WAIT_INPUT;
             break;
         }
 
