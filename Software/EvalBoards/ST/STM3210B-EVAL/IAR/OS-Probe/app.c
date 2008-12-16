@@ -181,10 +181,10 @@ int  main (void)
 static  void  App_TaskStart (void *p_arg)
 {
     CPU_INT32U  i;
-    CPU_INT32U  dly;
     CPU_INT08U  nstate;
     CPU_INT08U  err;
     CPU_INT08U  now_stage;
+    CPU_INT08U  remained_input;
     
     (void)p_arg;
 
@@ -203,28 +203,50 @@ static  void  App_TaskStart (void *p_arg)
     App_EventCreate();                                          /* Create application events.                           */
     App_TaskCreate();                                           /* Create application tasks.                            */
     nstate = APP_IDLE;
-    now_stage = 1;
     while (DEF_TRUE) {                                          /* Task body, always written as an infinite loop.       */
         switch(nstate){
         case APP_IDLE:
+            now_stage = 0;
             OSMboxPend(App_ProcessMbox, 0, &err);
             if(OS_ERR_NONE == err)
                 nstate = APP_SHOW_SEQ;
             break;
         
         case APP_SHOW_SEQ:
-            for (i = 0; i <= MakeRandomNumber(); i++) {
-                BSP_LED_On(3);
-                dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
-                OSTimeDlyHMSM(0, 0, 0, dly * 3);
-                BSP_LED_Off(3);
-                dly = (BSP_ADC_GetStatus(1) >> 4) + 2;
-                OSTimeDlyHMSM(0, 0, 0, dly * 3);
-            }
             now_stage++;
-            nstate = APP_IDLE;
+            for (i = 0; i < now_stage/*MakeRandomNumber()*/; i++) {
+                BSP_LED_On(3);
+                OSTimeDlyHMSM(0, 0, 1, 0);
+                BSP_LED_Off(3);
+                OSTimeDlyHMSM(0, 0, 1, 0);
+            }
+            remained_input = now_stage;
+            nstate = APP_WAIT_INPUT;
+            break;
+            
+        case APP_WAIT_INPUT:
+            OSMboxPend(App_ProcessMbox, OS_TICKS_PER_SEC*3, &err);
+            if(OS_ERR_NONE == err){
+                remained_input--;
+                if(0 == remained_input)
+                    nstate = APP_SHOW_SEQ;
+                else
+                    nstate = APP_WAIT_INPUT;
+            }
+            else if(OS_ERR_TIMEOUT == err){
+                BSP_LED_On(3);
+                OSTimeDlyHMSM(0, 0, 0, 500);
+                BSP_LED_Off(3);
+                OSTimeDlyHMSM(0, 0, 0, 500);
+                BSP_LED_On(3);
+                OSTimeDlyHMSM(0, 0, 0, 500);
+                BSP_LED_Off(3);
+                OSTimeDlyHMSM(0, 0, 0, 500);
+                nstate = APP_IDLE;
+            }
             break;
         }
+
     }
 }
 
