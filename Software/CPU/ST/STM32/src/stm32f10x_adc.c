@@ -1,5 +1,5 @@
 /******************** (C) COPYRIGHT 2008 STMicroelectronics ********************
-* File Name          : stm32f10x_adc.c
+* File Name          : stm32f10x_adc.c 
 * Author             : MCD Application Team
 * Version            : V2.0
 * Date               : 05/23/2008
