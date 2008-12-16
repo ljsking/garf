@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <project>
-  <fileVersion>1</fileVersion>
+  <fileVersion>2</fileVersion>
   <configuration>
     <name>Flash</name>
     <toolchain>
@@ -12,7 +12,7 @@
       <name>General</name>
       <archiveVersion>3</archiveVersion>
       <data>
-        <version>14</version>
+        <version>16</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -29,8 +29,8 @@
         </option>
         <option>
           <name>Variant</name>
-          <version>7</version>
-          <state>31</state>
+          <version>8</version>
+          <state>32</state>
         </option>
         <option>
           <name>GEndianMode</name>
@@ -94,11 +94,6 @@
           <state>5.11.0.50615</state>
         </option>
         <option>
-          <name>GeneralMisraRules</name>
-          <version>0</version>
-          <state>1000111110110101101110011100111111101110011011000101110111101101100111111111111100110011111001110111001111111111111111111111111</state>
-        </option>
-        <option>
           <name>GeneralEnableMisra</name>
           <state>0</state>
         </option>
@@ -108,7 +103,7 @@
         </option>
         <option>
           <name>OGChipSelectEditMenu</name>
-          <state>STM32F10x	ST STM32F10x</state>
+          <state>STM32F10xxB	ST STM32F10xxB</state>
         </option>
         <option>
           <name>GenLowLevelInterface</name>
@@ -122,13 +117,22 @@
           <name>OGBufferedTerminalOutput</name>
           <state>0</state>
         </option>
+        <option>
+          <name>GenStdoutInterface</name>
+          <state>0</state>
+        </option>
+        <option>
+          <name>GeneralMisraRules98</name>
+          <version>0</version>
+          <state>1000111110110101101110011100111111101110011011000101110111101101100111111111111100110011111001110111001111111111111111111111111</state>
+        </option>
       </data>
     </settings>
     <settings>
       <name>ICCARM</name>
       <archiveVersion>2</archiveVersion>
       <data>
-        <version>19</version>
+        <version>20</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -261,11 +265,6 @@
           <state></state>
         </option>
         <option>
-          <name>CompilerMisraRules</name>
-          <version>0</version>
-          <state>1000111110110101101110011100111111101110011011000101110111101101100111111111111100110011111001110111001111111111111111111111111</state>
-        </option>
-        <option>
           <name>CompilerMisraOverride</name>
           <state>0</state>
         </option>
@@ -317,6 +316,11 @@
         <option>
           <name>CCOptLevelSlave</name>
           <state>1</state>
+        </option>
+        <option>
+          <name>CompilerMisraRules98</name>
+          <version>0</version>
+          <state>1000111110110101101110011100111111101110011011000101110111101101100111111111111100110011111001110111001111111111111111111111111</state>
         </option>
       </data>
     </settings>
@@ -495,7 +499,7 @@
         <debug>1</debug>
         <option>
           <name>OOCOutputFormat</name>
-          <version>1</version>
+          <version>2</version>
           <state>2</state>
         </option>
         <option>
@@ -504,7 +508,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>STM3210B-EVAL-OS-Probe-v5.bin</state>
+          <state>STM3210B-EVAL-OS-Probe-v5-2.bin</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -541,7 +545,7 @@
       <name>ILINK</name>
       <archiveVersion>0</archiveVersion>
       <data>
-        <version>5</version>
+        <version>6</version>
         <wantNonLocal>1</wantNonLocal>
         <debug>1</debug>
         <option>
@@ -747,6 +751,10 @@
           <name>IlinkBufferedTerminalOutput</name>
           <state>1</state>
         </option>
+        <option>
+          <name>IlinkStdoutInterfaceSlave</name>
+          <state>1</state>
+        </option>
       </data>
     </settings>
     <settings>
@@ -797,6 +805,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\probe_com_cfg.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\util.c</name>
       </file>
     </group>
     <group>
