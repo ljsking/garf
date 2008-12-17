@@ -69,10 +69,12 @@ static  OS_STK         App_TaskStartStk[APP_TASK_START_STK_SIZE];
 static  OS_STK         App_TaskUserIFStk[APP_TASK_USER_IF_STK_SIZE];
 static  OS_STK         App_TaskKbdStk[APP_TASK_KBD_STK_SIZE];
 static  OS_STK         App_Task7SegsStk[APP_TASK_7SEGS_STK_SIZE];
+static  OS_STK         App_TaskBuzzStk[APP_TASK_BUZZ_STK_SIZE];
 
 static  OS_EVENT      *App_UserIFMbox;
 static  OS_EVENT      *App_ProcessMbox;
 static  OS_EVENT      *App_7SegsMbox;
+static  OS_EVENT      *App_BuzzMbox;
 
 #if ((APP_OS_PROBE_EN   == DEF_ENABLED) && \
      (APP_PROBE_COM_EN  == DEF_ENABLED) && \
@@ -114,6 +116,7 @@ static  void  App_TaskStart        (void        *p_arg);
 static  void  App_TaskUserIF       (void        *p_arg);
 static  void  App_TaskKbd          (void        *p_arg);
 static  void  App_Task7Segs        (void        *p_arg);
+static  void  App_TaskBuzz         (void        *p_arg);
 
 #if ((APP_PROBE_COM_EN == DEF_ENABLED) || \
      (APP_OS_PROBE_EN  == DEF_ENABLED))
@@ -229,6 +232,7 @@ static  void  App_TaskStart (void *p_arg)
             for (i = 0; i < now_stage; i++) {
                 OSTimeDlyHMSM(0, 0, 0, 500);
                 BSP_LED_On(answer[i]+1);
+                OSMboxPost(App_BuzzMbox, (void *)(answer[i]+1));
                 OSTimeDlyHMSM(0, 0, 0, 500);
                 BSP_LED_Off(answer[i]+1);
             }
@@ -306,10 +310,12 @@ static  void  App_EventCreate (void)
     App_UserIFMbox = OSMboxCreate((void *)0);                   /* Create MBOX for communication between Kbd and UserIF.*/
     App_ProcessMbox = OSMboxCreate((void *)0);                   /* Create MBOX for communication between Kbd and Process.*/
     App_7SegsMbox = OSMboxCreate((void *)0);                   /* Create MBOX for communication between Process and 7Segs.*/
+    App_BuzzMbox = OSMboxCreate((void *)0);                   /* Create MBOX for communication between Process and Buzz.*/
 #if (OS_EVENT_NAME_SIZE > 12)
     OSEventNameSet(App_UserIFMbox, "User IF Mbox", &os_err);
     OSEventNameSet(App_ProcessMbox, "Process Mbox", &os_err);
     OSEventNameSet(App_7SegsMbox, "7Segs Mbox", &os_err);
+    OSEventNameSet(App_BuzzMbox, "Buzz Mbox", &os_err);
 #endif
 }
 
@@ -376,6 +382,20 @@ static  void  App_TaskCreate (void)
 #if (OS_TASK_NAME_SIZE >= 9)
     OSTaskNameSet(APP_TASK_KBD_PRIO, "7 Segs", &os_err);
 #endif
+    
+    os_err = OSTaskCreateExt((void (*)(void *)) App_TaskBuzz,
+                             (void          * ) 0,
+                             (OS_STK        * )&App_TaskBuzzStk[APP_TASK_BUZZ_STK_SIZE - 1],
+                             (INT8U           ) APP_TASK_BUZZ_PRIO,
+                             (INT16U          ) APP_TASK_BUZZ_PRIO,
+                             (OS_STK        * )&App_TaskBuzzStk[0],
+                             (INT32U          ) APP_TASK_BUZZ_STK_SIZE,
+                             (void          * ) 0,
+                             (INT16U          )(OS_TASK_OPT_STK_CLR | OS_TASK_OPT_STK_CHK));
+
+#if (OS_TASK_NAME_SIZE >= 9)
+    OSTaskNameSet(APP_TASK_KBD_PRIO, "7 Segs", &os_err);
+#endif
 }
 
 
@@ -409,12 +429,16 @@ static  void  App_TaskKbd (void *p_arg)
         
         if (DEF_BIT_IS_SET(b, BSP_PUSH_BUTTON_1) && DEF_BIT_IS_CLR(b_prev, BSP_PUSH_BUTTON_1)) {
             OSMboxPost(App_ProcessMbox, (void *)0);
+            OSMboxPost(App_UserIFMbox, (void *)0);
         }else if(DEF_BIT_IS_SET(b, BSP_PUSH_BUTTON_2) && DEF_BIT_IS_CLR(b_prev, BSP_PUSH_BUTTON_2)){
             OSMboxPost(App_ProcessMbox, (void *)1);
+            OSMboxPost(App_UserIFMbox, (void *)1);
         }else if(DEF_BIT_IS_SET(b, BSP_PUSH_BUTTON_3) && DEF_BIT_IS_CLR(b_prev, BSP_PUSH_BUTTON_3)){
             OSMboxPost(App_ProcessMbox, (void *)2);
+            OSMboxPost(App_UserIFMbox, (void *)2);
         }else if(DEF_BIT_IS_SET(b, BSP_PUSH_BUTTON_4) && DEF_BIT_IS_CLR(b_prev, BSP_PUSH_BUTTON_4)){
             OSMboxPost(App_ProcessMbox, (void *)3);
+            OSMboxPost(App_UserIFMbox, (void *)3);
         }
         b_prev = b;
         OSTimeDlyHMSM(0, 0, 0, 20);
@@ -440,27 +464,14 @@ static  void  App_TaskKbd (void *p_arg)
 
 static  void  App_TaskUserIF (void *p_arg)
 {
-    CPU_INT08U  *msg;
+    CPU_INT32U   msg;
     CPU_INT08U   err;
-    CPU_INT32U   nstate;
-    CPU_INT32U   count;
-    count = 0;
-    (void)p_arg;
-
-    OSTimeDlyHMSM(0, 0, 1, 0);
-    nstate = 1;
-
 
     while (DEF_TRUE) {
-        msg = (CPU_INT08U *)(OSMboxPend(App_UserIFMbox, 0, &err));
-        if (err == OS_NO_ERR) {
-            nstate = (CPU_INT32U)msg;
-            switch (nstate) {
-            case 0:
-                count++;
-                break;
-            }
-        }
+        msg = (CPU_INT32U)(OSMboxPend(App_UserIFMbox, 0, &err));
+        BSP_LED_On(msg+1);
+        OSTimeDlyHMSM(0,0,0,300);
+        BSP_LED_Off(msg+1);
     }
 }
 
@@ -492,6 +503,38 @@ static  void  App_Task7Segs (void *p_arg)
         msg = (CPU_INT32U)(OSMboxPend(App_7SegsMbox, OS_TICKS_PER_SEC / 10, &err));
         if (err == OS_NO_ERR) {
             BSP_7Segs(msg);
+        }
+    }
+}
+
+/*
+*********************************************************************************************************
+*                                            App_TaskBuzz()
+*
+* Description : Buzz sound!!.
+*
+* Argument(s) : p_arg       Argument passed to 'App_TaskBuzz()' by 'OSTaskCreate()'.
+*
+* Return(s)   : none.
+*
+* Caller(s)   : This is a task.
+*
+* Note(s)     : none.
+*********************************************************************************************************
+*/
+
+static  void  App_TaskBuzz (void *p_arg)
+{
+    CPU_INT32U   msg;
+    CPU_INT08U   err;
+    CPU_INT32U   i;
+    while (DEF_TRUE) {
+        msg = (CPU_INT32U)(OSMboxPend(App_BuzzMbox, 0, &err));
+        for(i=0;i<400/2/msg;i++){
+            OSTimeDlyHMSM(0, 0, 0, msg);
+            BSP_Buzzer_On();
+            OSTimeDlyHMSM(0, 0, 0, msg);
+            BSP_Buzzer_Off();
         }
     }
 }

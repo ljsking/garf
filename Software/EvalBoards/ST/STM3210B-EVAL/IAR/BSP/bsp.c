@@ -41,7 +41,6 @@
 *********************************************************************************************************
 */
                                                                 /* -------------------- GPIOA PINS -------------------- */
-#define  BSP_GPIOA_PB_WAKEUP                      DEF_BIT_00
 #define  BSP_GPIOA_UART1_TX                       DEF_BIT_09
 #define  BSP_GPIOA_UART1_RX                       DEF_BIT_10
 #define  BSP_GPIOA_LCD_BL                         DEF_BIT_14
@@ -50,6 +49,9 @@
 #define  BSP_GPIOA_SW_LED_GREEN                   DEF_BIT_04
 
 #define  BSP_GPIOA_7_Seg_C_2                      DEF_BIT_07
+#define  BSP_GPIOA_7_Seg_3                        DEF_BIT_01
+
+#define  BSP_GPIOA_BUZZER                         DEF_BIT_00
 
                                                                 /* -------------------- GPIOB PINS -------------------- */
 #define  BSP_GPIOB_LCD_CS                         DEF_BIT_02
@@ -140,9 +142,11 @@ static  void  BSP_ADC_Init     (void);
 
 static  void  BSP_LED_Init     (void);
 
-static  void  BSP_7Segs_Init     (void);
+static  void  BSP_7Segs_Init   (void);
 
 static  void  BSP_PB_Init      (void);
+
+static  void  BSP_Buzzer_Init  (void);
 
 /*
 *********************************************************************************************************
@@ -197,6 +201,7 @@ void  BSP_Init (void)
     BSP_LED_Init();                                             /* Initialize the I/Os for the LED      controls.       */
     BSP_7Segs_Init();                                             /* Initialize the I/Os for the LED      controls.       */
     BSP_PB_Init();                                              /* Initialize the I/Os for the PB       control.        */
+    BSP_Buzzer_Init();
 }
 
 /*
@@ -667,7 +672,7 @@ static  void  BSP_7Segs_Init (void)
 
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB|RCC_APB2Periph_GPIOC, ENABLE);
     
-    gpio_init.GPIO_Pin   =  BSP_GPIOA_7_Seg_C_2;
+    gpio_init.GPIO_Pin   =  BSP_GPIOA_7_Seg_C_2|BSP_GPIOA_7_Seg_3;
     gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
     gpio_init.GPIO_Mode  = GPIO_Mode_Out_PP;
     GPIO_Init(GPIOA, &gpio_init);
@@ -704,12 +709,12 @@ static  void  BSP_7Segs_Init (void)
 
 void  BSP_7Segs (CPU_INT08U seg)
 {
-   GPIO_SetBits(GPIOA, BSP_GPIOA_7_Seg_C_2);
+   GPIO_SetBits(GPIOA, BSP_GPIOA_7_Seg_C_2|BSP_GPIOA_7_Seg_3);
    GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A_1|BSP_GPIOB_7_Seg_B_1|BSP_GPIOB_7_Seg_C_1
                           |BSP_GPIOB_7_Seg_D_1|BSP_GPIOB_7_Seg_E_1|BSP_GPIOB_7_Seg_G_1);
    GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_F_1 | BSP_GPIOC_7_Seg_A_2 | BSP_GPIOC_7_Seg_B_2 |
       BSP_GPIOC_7_Seg_D_2 | BSP_GPIOC_7_Seg_E_2 | BSP_GPIOC_7_Seg_F_2 | BSP_GPIOC_7_Seg_G_2);
-   switch (seg) {
+   switch (seg%10) {
         case 0:
              GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A_1|BSP_GPIOB_7_Seg_B_1|BSP_GPIOB_7_Seg_C_1
                           |BSP_GPIOB_7_Seg_D_1|BSP_GPIOB_7_Seg_E_1);
@@ -757,7 +762,7 @@ void  BSP_7Segs (CPU_INT08U seg)
         default:
              break;
     }
-    switch (seg) {
+    switch ((seg/10)%10) {
         case 0:
              GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_A_2|BSP_GPIOC_7_Seg_B_2|BSP_GPIOC_7_Seg_D_2
                           |BSP_GPIOC_7_Seg_E_2|BSP_GPIOC_7_Seg_F_2);
@@ -808,8 +813,100 @@ void  BSP_7Segs (CPU_INT08U seg)
         default:
              break;
     }
+    if(seg/100)
+        GPIO_ResetBits(GPIOA, BSP_GPIOA_7_Seg_3);
 }
 
+/*
+*********************************************************************************************************
+*********************************************************************************************************
+*                                              BUZZER FUNCTIONS
+*********************************************************************************************************
+*********************************************************************************************************
+*/
+
+/*
+*********************************************************************************************************
+*                                             BSP_Buzzer_Init()
+*
+* Description : Initialize the I/O for the Buzzer
+*
+* Argument(s) : none.
+*
+* Return(s)   : none.
+*
+* Caller(s)   : BSP_Init().
+*
+* Note(s)     : none.
+*********************************************************************************************************
+*/
+
+static  void  BSP_Buzzer_Init (void)
+{
+    GPIO_InitTypeDef  gpio_init;
+
+
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+
+    gpio_init.GPIO_Pin   = BSP_GPIOA_BUZZER;
+    gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
+    gpio_init.GPIO_Mode  = GPIO_Mode_Out_PP;
+    GPIO_Init(GPIOA, &gpio_init);
+}
+
+/*
+*********************************************************************************************************
+*                                             BSP_Buzzer_On()
+*
+* Description : Turn ON any or all the LEDs on the board.
+*
+* Argument(s) : led     The ID of the LED to control:
+*
+*                       0    turn ON all LEDs on the board
+*                       1    turn ON LED 1
+*                       2    turn ON LED 2
+*                       3    turn ON LED 3
+*                       4    turn ON LED 4
+*
+* Return(s)   : none.
+*
+* Caller(s)   : Application.
+*
+* Note(s)     : none.
+*********************************************************************************************************
+*/
+
+void  BSP_Buzzer_On ()
+{
+    GPIO_SetBits(GPIOA, BSP_GPIOA_BUZZER);
+}
+
+/*
+*********************************************************************************************************
+*                                              BSP_LED_Off()
+*
+* Description : Turn OFF any or all the LEDs on the board.
+*
+* Argument(s) : led     The ID of the LED to control:
+*
+*                       0    turn OFF all LEDs on the board
+*                       1    turn OFF LED 1
+*                       2    turn OFF LED 2
+*                       3    turn OFF LED 3
+*                       4    turn OFF LED 4
+*
+* Return(s)   : none.
+*
+* Caller(s)   : Application.
+*
+* Note(s)     : none.
+*********************************************************************************************************
+*/
+
+void  BSP_Buzzer_Off ()
+{
+    GPIO_ResetBits(GPIOA, BSP_GPIOA_BUZZER);
+}
 
 /*
 *********************************************************************************************************
