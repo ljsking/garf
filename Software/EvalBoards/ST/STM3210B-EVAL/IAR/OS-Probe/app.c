@@ -230,10 +230,10 @@ static  void  App_TaskStart (void *p_arg)
             BSP_LED_Off(0);
             answer[now_stage-1] = MakeRandomNumber(4);
             for (i = 0; i < now_stage; i++) {
-                OSTimeDlyHMSM(0, 0, 0, 500);
+                OSTimeDlyHMSM(0, 0, 0, 350);
                 BSP_LED_On(answer[i]+1);
                 OSMboxPost(App_BuzzMbox, (void *)(answer[i]+1));
-                OSTimeDlyHMSM(0, 0, 0, 500);
+                OSTimeDlyHMSM(0, 0, 0, 350);
                 BSP_LED_Off(answer[i]+1);
             }
             remained_input = now_stage;
@@ -470,7 +470,7 @@ static  void  App_TaskUserIF (void *p_arg)
     while (DEF_TRUE) {
         msg = (CPU_INT32U)(OSMboxPend(App_UserIFMbox, 0, &err));
         BSP_LED_On(msg+1);
-        OSTimeDlyHMSM(0,0,0,300);
+        OSTimeDlyHMSM(0,0,0,200);
         BSP_LED_Off(msg+1);
     }
 }
@@ -530,7 +530,7 @@ static  void  App_TaskBuzz (void *p_arg)
     CPU_INT32U   i;
     while (DEF_TRUE) {
         msg = (CPU_INT32U)(OSMboxPend(App_BuzzMbox, 0, &err));
-        for(i=0;i<400/2/msg;i++){
+        for(i=0;i<340/2/msg;i++){
             OSTimeDlyHMSM(0, 0, 0, msg);
             BSP_Buzzer_On();
             OSTimeDlyHMSM(0, 0, 0, msg);
