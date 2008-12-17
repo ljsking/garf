@@ -221,16 +221,20 @@ static  void  App_TaskStart (void *p_arg)
         
         case APP_SHOW_SEQ:
             now_stage++;
-            answer[now_stage-1] = MakeRandomNumber(2);
             OSMboxPost(App_7SegsMbox, (void *)now_stage);
-            for (i = 0; i < now_stage/*MakeRandomNumber()*/; i++) {
-                BSP_LED_On(answer[i]);
+            BSP_LED_On(0);
+            OSTimeDlyHMSM(0, 0, 0, 250);
+            BSP_LED_Off(0);
+            answer[now_stage-1] = MakeRandomNumber(3);
+            for (i = 0; i < now_stage; i++) {
                 OSTimeDlyHMSM(0, 0, 0, 500);
-                BSP_LED_Off(answer[i]);
+                BSP_LED_On(answer[i]+1);
                 OSTimeDlyHMSM(0, 0, 0, 500);
+                BSP_LED_Off(answer[i]+1);
             }
             remained_input = now_stage;
             nstate = APP_WAIT_INPUT;
+            OSMboxAccept(App_ProcessMbox); // clear mail box
             break;
             
         case APP_WAIT_INPUT:
@@ -238,13 +242,13 @@ static  void  App_TaskStart (void *p_arg)
             if(OS_ERR_NONE == err){
                 nstate = APP_RECOGNIZE;
             }else if(OS_ERR_TIMEOUT == err){
-                BSP_LED_On(3);
+                BSP_LED_On(0);
                 OSTimeDlyHMSM(0, 0, 0, 250);
-                BSP_LED_Off(3);
+                BSP_LED_Off(0);
                 OSTimeDlyHMSM(0, 0, 0, 250);
-                BSP_LED_On(3);
+                BSP_LED_On(0);
                 OSTimeDlyHMSM(0, 0, 0, 250);
-                BSP_LED_Off(3);
+                BSP_LED_Off(0);
                 OSTimeDlyHMSM(0, 0, 0, 250);
                 nstate = APP_IDLE;
             }
@@ -252,19 +256,19 @@ static  void  App_TaskStart (void *p_arg)
           
         case APP_RECOGNIZE:
             remained_input--;
-            if(nbutton == answer[remained_input]){
+            if(nbutton == answer[now_stage-remained_input-1]){
                 if(0 == remained_input)
                     nstate = APP_SHOW_SEQ;
                 else
                     nstate = APP_WAIT_INPUT;
             }else{
-              BSP_LED_On(3);
+              BSP_LED_On(0);
                 OSTimeDlyHMSM(0, 0, 0, 250);
-                BSP_LED_Off(3);
+                BSP_LED_Off(0);
                 OSTimeDlyHMSM(0, 0, 0, 250);
-                BSP_LED_On(3);
+                BSP_LED_On(0);
                 OSTimeDlyHMSM(0, 0, 0, 250);
-                BSP_LED_Off(3);
+                BSP_LED_Off(0);
                 OSTimeDlyHMSM(0, 0, 0, 250);
                 nstate = APP_IDLE;
             }
