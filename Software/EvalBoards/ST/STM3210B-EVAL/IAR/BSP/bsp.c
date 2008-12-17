@@ -47,6 +47,8 @@
 #define  BSP_GPIOA_LCD_BL                         DEF_BIT_14
 #define  BSP_GPIOA_SW_LED_BUTTON_YELLOW           DEF_BIT_06
 
+#define  BSP_GPIOA_7_Seg_C_2                      DEF_BIT_07
+
                                                                 /* -------------------- GPIOB PINS -------------------- */
 #define  BSP_GPIOB_LCD_CS                         DEF_BIT_02
 #define  BSP_GPIOB_TEMP_INT                       DEF_BIT_05
@@ -58,22 +60,28 @@
 #define  BSP_GPIOB_LCD_SDO                        DEF_BIT_14
 #define  BSP_GPIOB_LCD_SDI                        DEF_BIT_15
 
-#define  BSP_GPIOB_7_Seg_B                        DEF_BIT_13
-#define  BSP_GPIOB_7_Seg_A                        DEF_BIT_12
-#define  BSP_GPIOB_7_Seg_G                        DEF_BIT_08
-#define  BSP_GPIOB_7_Seg_D                        DEF_BIT_10
-#define  BSP_GPIOB_7_Seg_E                        DEF_BIT_02
-#define  BSP_GPIOB_7_Seg_C                        DEF_BIT_01
+#define  BSP_GPIOB_7_Seg_B_1                      DEF_BIT_13
+#define  BSP_GPIOB_7_Seg_A_1                      DEF_BIT_12
+#define  BSP_GPIOB_7_Seg_G_1                      DEF_BIT_08
+#define  BSP_GPIOB_7_Seg_D_1                      DEF_BIT_10
+#define  BSP_GPIOB_7_Seg_E_1                      DEF_BIT_02
+#define  BSP_GPIOB_7_Seg_C_1                      DEF_BIT_01
 
 #define  BSP_GPIOB_SW_LED_RED                     DEF_BIT_14
 #define  BSP_GPIOB_SW_LED_BUTTON_RED              DEF_BIT_11
 #define  BSP_GPIOB_SW_LED_YELLOW                  DEF_BIT_00
                                                                 /* -------------------- GPIOC PINS -------------------- */
-#define  BSP_GPIOC_POT                            DEF_BIT_04
 #define  BSP_GPIOC_SW_1                           DEF_BIT_07
 #define  BSP_GPIOC_LED3                           DEF_BIT_08
 #define  BSP_GPIOC_LED4                           DEF_BIT_09
-#define  BSP_GPIOC_7_Seg_F                        DEF_BIT_13
+#define  BSP_GPIOC_7_Seg_F_1                      DEF_BIT_13
+
+#define  BSP_GPIOC_7_Seg_A_2                      DEF_BIT_15
+#define  BSP_GPIOC_7_Seg_B_2                      DEF_BIT_14
+#define  BSP_GPIOC_7_Seg_E_2                      DEF_BIT_05
+#define  BSP_GPIOC_7_Seg_D_2                      DEF_BIT_04
+#define  BSP_GPIOC_7_Seg_F_2                      DEF_BIT_00
+#define  BSP_GPIOC_7_Seg_G_2                      DEF_BIT_01
                                                                 /* -------------------- GPIOD PINS -------------------- */
 #define  BSP_GPIOD_CAN_RX                         DEF_BIT_00
 #define  BSP_GPIOD_CAN_TX                         DEF_BIT_01
@@ -639,17 +647,22 @@ static  void  BSP_7Segs_Init (void)
     GPIO_InitTypeDef  gpio_init;
 
 
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB|RCC_APB2Periph_GPIOC, ENABLE);
+    
+    gpio_init.GPIO_Pin   =  BSP_GPIOA_7_Seg_C_2;
+    gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
+    gpio_init.GPIO_Mode  = GPIO_Mode_Out_PP;
+    GPIO_Init(GPIOA, &gpio_init);
 
-    gpio_init.GPIO_Pin   =  BSP_GPIOB_7_Seg_A | BSP_GPIOB_7_Seg_B | BSP_GPIOB_7_Seg_C | 
-      BSP_GPIOB_7_Seg_D | BSP_GPIOB_7_Seg_E | BSP_GPIOB_7_Seg_G;
+    gpio_init.GPIO_Pin   =  BSP_GPIOB_7_Seg_A_1 | BSP_GPIOB_7_Seg_B_1 | BSP_GPIOB_7_Seg_C_1 | 
+      BSP_GPIOB_7_Seg_D_1 | BSP_GPIOB_7_Seg_E_1 | BSP_GPIOB_7_Seg_G_1;
     gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
     gpio_init.GPIO_Mode  = GPIO_Mode_Out_PP;
     GPIO_Init(GPIOB, &gpio_init);
     
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
-
-    gpio_init.GPIO_Pin   =  BSP_GPIOC_7_Seg_F;
+    
+    gpio_init.GPIO_Pin   =  BSP_GPIOC_7_Seg_F_1 | BSP_GPIOC_7_Seg_A_2 | BSP_GPIOC_7_Seg_B_2 |
+      BSP_GPIOC_7_Seg_D_2 | BSP_GPIOC_7_Seg_E_2 | BSP_GPIOC_7_Seg_F_2 | BSP_GPIOC_7_Seg_G_2;
     gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
     gpio_init.GPIO_Mode  = GPIO_Mode_Out_PP;
     GPIO_Init(GPIOC, &gpio_init);
@@ -673,53 +686,106 @@ static  void  BSP_7Segs_Init (void)
 
 void  BSP_7Segs (CPU_INT08U seg)
 {
-   GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
-                          |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_E|BSP_GPIOB_7_Seg_G);
-   GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_F);
+   GPIO_SetBits(GPIOA, BSP_GPIOA_7_Seg_C_2);
+   GPIO_SetBits(GPIOB, BSP_GPIOB_7_Seg_A_1|BSP_GPIOB_7_Seg_B_1|BSP_GPIOB_7_Seg_C_1
+                          |BSP_GPIOB_7_Seg_D_1|BSP_GPIOB_7_Seg_E_1|BSP_GPIOB_7_Seg_G_1);
+   GPIO_SetBits(GPIOC, BSP_GPIOC_7_Seg_F_1 | BSP_GPIOC_7_Seg_A_2 | BSP_GPIOC_7_Seg_B_2 |
+      BSP_GPIOC_7_Seg_D_2 | BSP_GPIOC_7_Seg_E_2 | BSP_GPIOC_7_Seg_F_2 | BSP_GPIOC_7_Seg_G_2);
    switch (seg) {
         case 0:
-             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
-                          |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_E);
-             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F);
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A_1|BSP_GPIOB_7_Seg_B_1|BSP_GPIOB_7_Seg_C_1
+                          |BSP_GPIOB_7_Seg_D_1|BSP_GPIOB_7_Seg_E_1);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F_1);
              break;
         case 1:
-             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C);
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_B_1|BSP_GPIOB_7_Seg_C_1);
              break;
         case 2:
-             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_D
-                          |BSP_GPIOB_7_Seg_E|BSP_GPIOB_7_Seg_G);
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A_1|BSP_GPIOB_7_Seg_B_1|BSP_GPIOB_7_Seg_D_1
+                          |BSP_GPIOB_7_Seg_E_1|BSP_GPIOB_7_Seg_G_1);
              break;
         case 3:
-             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
-                          |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_G);
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A_1|BSP_GPIOB_7_Seg_B_1|BSP_GPIOB_7_Seg_C_1
+                          |BSP_GPIOB_7_Seg_D_1|BSP_GPIOB_7_Seg_G_1);
              break;
         case 4:
-             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_G);
-             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F);
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_B_1|BSP_GPIOB_7_Seg_C_1|BSP_GPIOB_7_Seg_G_1);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F_1);
              break;
         case 5:
-             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_D
-                          |BSP_GPIOB_7_Seg_G);
-             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F);
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A_1|BSP_GPIOB_7_Seg_C_1|BSP_GPIOB_7_Seg_D_1
+                          |BSP_GPIOB_7_Seg_G_1);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F_1);
              break;
         case 6:
-             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_C|BSP_GPIOB_7_Seg_D
-                          |BSP_GPIOB_7_Seg_E|BSP_GPIOB_7_Seg_G);
-             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F);
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A_1|BSP_GPIOB_7_Seg_C_1|BSP_GPIOB_7_Seg_D_1
+                          |BSP_GPIOB_7_Seg_E_1|BSP_GPIOB_7_Seg_G_1);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F_1);
              break;
         case 7:
-             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C);
-             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F);
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A_1|BSP_GPIOB_7_Seg_B_1|BSP_GPIOB_7_Seg_C_1);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F_1);
              break;
         case 8:
-             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
-                          |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_E|BSP_GPIOB_7_Seg_G);
-             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F);
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A_1|BSP_GPIOB_7_Seg_B_1|BSP_GPIOB_7_Seg_C_1
+                          |BSP_GPIOB_7_Seg_D_1|BSP_GPIOB_7_Seg_E_1|BSP_GPIOB_7_Seg_G_1);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F_1);
              break;
         case 9:
-             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A|BSP_GPIOB_7_Seg_B|BSP_GPIOB_7_Seg_C
-                          |BSP_GPIOB_7_Seg_D|BSP_GPIOB_7_Seg_G);
-             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F);
+             GPIO_ResetBits(GPIOB, BSP_GPIOB_7_Seg_A_1|BSP_GPIOB_7_Seg_B_1|BSP_GPIOB_7_Seg_C_1
+                          |BSP_GPIOB_7_Seg_D_1|BSP_GPIOB_7_Seg_G_1);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_F_1);
+             break;
+        default:
+             break;
+    }
+    switch (seg) {
+        case 0:
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_A_2|BSP_GPIOC_7_Seg_B_2|BSP_GPIOC_7_Seg_D_2
+                          |BSP_GPIOC_7_Seg_E_2|BSP_GPIOC_7_Seg_F_2);
+             GPIO_ResetBits(GPIOA, BSP_GPIOA_7_Seg_C_2);
+             break;
+        case 1:
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_B_2);
+             GPIO_ResetBits(GPIOA, BSP_GPIOA_7_Seg_C_2);
+             break;
+        case 2:
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_A_2|BSP_GPIOC_7_Seg_B_2|BSP_GPIOC_7_Seg_D_2
+                          |BSP_GPIOC_7_Seg_E_2|BSP_GPIOC_7_Seg_F_2);
+             break;
+        case 3:
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_A_2|BSP_GPIOC_7_Seg_B_2|BSP_GPIOC_7_Seg_D_2
+                          |BSP_GPIOC_7_Seg_G_2);
+             GPIO_ResetBits(GPIOA, BSP_GPIOA_7_Seg_C_2);
+             break;
+        case 4:
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_B_2|BSP_GPIOC_7_Seg_F_2|BSP_GPIOC_7_Seg_G_2);
+             GPIO_ResetBits(GPIOA, BSP_GPIOA_7_Seg_C_2);
+             break;
+        case 5:
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_A_2|BSP_GPIOC_7_Seg_D_2
+                          |BSP_GPIOC_7_Seg_F_2|BSP_GPIOC_7_Seg_G_2);
+             GPIO_ResetBits(GPIOA, BSP_GPIOA_7_Seg_C_2);
+             break;
+        case 6:
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_A_2|BSP_GPIOC_7_Seg_D_2
+                          |BSP_GPIOC_7_Seg_E_2|BSP_GPIOC_7_Seg_F_2|BSP_GPIOC_7_Seg_G_2);
+             GPIO_ResetBits(GPIOA, BSP_GPIOA_7_Seg_C_2);
+             break;
+        case 7:
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_A_2|BSP_GPIOC_7_Seg_B_2
+                          |BSP_GPIOC_7_Seg_F_2);
+             GPIO_ResetBits(GPIOA, BSP_GPIOA_7_Seg_C_2);
+             break;
+        case 8:
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_A_2|BSP_GPIOC_7_Seg_B_2|BSP_GPIOC_7_Seg_D_2
+                          |BSP_GPIOC_7_Seg_E_2|BSP_GPIOC_7_Seg_F_2|BSP_GPIOC_7_Seg_G_2);
+             GPIO_ResetBits(GPIOA, BSP_GPIOA_7_Seg_C_2);
+             break;
+        case 9:
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_7_Seg_A_2|BSP_GPIOC_7_Seg_B_2|BSP_GPIOC_7_Seg_D_2
+                          |BSP_GPIOC_7_Seg_F_2|BSP_GPIOC_7_Seg_G_2);
+             GPIO_ResetBits(GPIOA, BSP_GPIOA_7_Seg_C_2);
              break;
         default:
              break;
