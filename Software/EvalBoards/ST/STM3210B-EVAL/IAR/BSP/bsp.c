@@ -46,6 +46,8 @@
 #define  BSP_GPIOA_UART1_RX                       DEF_BIT_10
 #define  BSP_GPIOA_LCD_BL                         DEF_BIT_14
 #define  BSP_GPIOA_SW_LED_BUTTON_YELLOW           DEF_BIT_06
+#define  BSP_GPIOA_SW_LED_BUTTON_GREEN            DEF_BIT_05
+#define  BSP_GPIOA_SW_LED_GREEN                   DEF_BIT_04
 
 #define  BSP_GPIOA_7_Seg_C_2                      DEF_BIT_07
 
@@ -74,6 +76,8 @@
 #define  BSP_GPIOC_SW_1                           DEF_BIT_07
 #define  BSP_GPIOC_LED3                           DEF_BIT_08
 #define  BSP_GPIOC_LED4                           DEF_BIT_09
+#define  BSP_GPIOC_SW_LED_BLUE                    DEF_BIT_02
+#define  BSP_GPIOC_SW_LED_BUTTON_BLUE             DEF_BIT_03
 #define  BSP_GPIOC_7_Seg_F_1                      DEF_BIT_13
 
 #define  BSP_GPIOC_7_Seg_A_2                      DEF_BIT_15
@@ -364,7 +368,7 @@ static  void  BSP_PB_Init (void)
 
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB|RCC_APB2Periph_GPIOC, ENABLE);
       
-    gpio_init.GPIO_Pin  = BSP_GPIOA_SW_LED_BUTTON_YELLOW;
+    gpio_init.GPIO_Pin  = BSP_GPIOA_SW_LED_BUTTON_YELLOW|BSP_GPIOA_SW_LED_BUTTON_GREEN;
     gpio_init.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOA, &gpio_init);
     
@@ -372,7 +376,7 @@ static  void  BSP_PB_Init (void)
     gpio_init.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOB, &gpio_init);
     
-    gpio_init.GPIO_Pin  = BSP_GPIOC_SW_1;
+    gpio_init.GPIO_Pin  = BSP_GPIOC_SW_LED_BUTTON_BLUE;
     gpio_init.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOC, &gpio_init);
 }
@@ -399,19 +403,24 @@ CPU_INT32U  BSP_PB_GetStatus ()
     
     status = 0;
     
-    pin    = GPIO_ReadInputDataBit(GPIOC, BSP_GPIOC_SW_1);
+    pin    = GPIO_ReadInputDataBit(GPIOB, BSP_GPIOB_SW_LED_BUTTON_RED);
     if (pin == 0) {
         status |= BSP_PUSH_BUTTON_1;
     }
     
-    pin    = GPIO_ReadInputDataBit(GPIOB, BSP_GPIOB_SW_LED_BUTTON_RED);
+    pin    = GPIO_ReadInputDataBit(GPIOA, BSP_GPIOA_SW_LED_BUTTON_YELLOW);
     if (pin == 0) {
         status |= BSP_PUSH_BUTTON_2;
     }
     
-    pin    = GPIO_ReadInputDataBit(GPIOA, BSP_GPIOA_SW_LED_BUTTON_YELLOW);
+    pin    = GPIO_ReadInputDataBit(GPIOA, BSP_GPIOA_SW_LED_BUTTON_GREEN);
     if (pin == 0) {
         status |= BSP_PUSH_BUTTON_3;
+    }
+    
+    pin    = GPIO_ReadInputDataBit(GPIOC, BSP_GPIOC_SW_LED_BUTTON_BLUE);
+    if (pin == 0) {
+        status |= BSP_PUSH_BUTTON_4;
     }
     
     return (status);
@@ -446,14 +455,19 @@ static  void  BSP_LED_Init (void)
     GPIO_InitTypeDef  gpio_init;
 
 
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB|RCC_APB2Periph_GPIOC, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB|RCC_APB2Periph_GPIOC, ENABLE);
 
-    gpio_init.GPIO_Pin   =  BSP_GPIOC_LED3 | BSP_GPIOC_LED4;
+    gpio_init.GPIO_Pin   = BSP_GPIOA_SW_LED_GREEN;
+    gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
+    gpio_init.GPIO_Mode  = GPIO_Mode_Out_PP;
+    GPIO_Init(GPIOA, &gpio_init);
+    
+    gpio_init.GPIO_Pin   =  BSP_GPIOC_LED3 | BSP_GPIOC_LED4 | BSP_GPIOC_SW_LED_BLUE;
     gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
     gpio_init.GPIO_Mode  = GPIO_Mode_Out_PP;
     GPIO_Init(GPIOC, &gpio_init);
     
-    gpio_init.GPIO_Pin   =  BSP_GPIOB_SW_LED_RED|BSP_GPIOB_SW_LED_YELLOW;
+    gpio_init.GPIO_Pin   =  BSP_GPIOB_SW_LED_RED | BSP_GPIOB_SW_LED_YELLOW;
     gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
     gpio_init.GPIO_Mode  = GPIO_Mode_Out_PP;
     GPIO_Init(GPIOB, &gpio_init);
@@ -485,24 +499,26 @@ void  BSP_LED_On (CPU_INT08U led)
 {
     switch (led) {
         case 0:
+             GPIO_SetBits(GPIOA, BSP_GPIOA_SW_LED_GREEN);
+             GPIO_SetBits(GPIOC, BSP_GPIOC_SW_LED_BLUE);
              GPIO_ResetBits(GPIOC, BSP_GPIOC_LED3|BSP_GPIOC_LED4);
              GPIO_SetBits(GPIOB, BSP_GPIOB_SW_LED_RED|BSP_GPIOB_SW_LED_YELLOW);
              break;
              
         case 1:
-             GPIO_ResetBits(GPIOC, BSP_GPIOC_LED3);
-             break;
-             
-        case 2:
              GPIO_SetBits(GPIOB, BSP_GPIOB_SW_LED_RED);
              break;
              
-        case 3:
+        case 2:
              GPIO_SetBits(GPIOB, BSP_GPIOB_SW_LED_YELLOW);
              break;
              
+        case 3:
+             GPIO_SetBits(GPIOA, BSP_GPIOA_SW_LED_GREEN);
+             break;
+             
         case 4:
-             GPIO_ResetBits(GPIOC, BSP_GPIOC_LED4);
+             GPIO_SetBits(GPIOC, BSP_GPIOC_SW_LED_BLUE);
              break;
              
         default:
@@ -536,24 +552,26 @@ void  BSP_LED_Off (CPU_INT08U led)
 {
     switch (led) {
         case 0:
+             GPIO_ResetBits(GPIOA, BSP_GPIOA_SW_LED_GREEN);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_SW_LED_BLUE);
              GPIO_SetBits(GPIOC, BSP_GPIOC_LED3|BSP_GPIOC_LED4);
              GPIO_ResetBits(GPIOB, BSP_GPIOB_SW_LED_RED|BSP_GPIOB_SW_LED_YELLOW);
              break;
              
         case 1:
-             GPIO_SetBits(GPIOC, BSP_GPIOC_LED3);
-             break;
-             
-        case 2:
              GPIO_ResetBits(GPIOB, BSP_GPIOB_SW_LED_RED);
              break;
              
-        case 3:
+        case 2:
              GPIO_ResetBits(GPIOB, BSP_GPIOB_SW_LED_YELLOW);
              break;
              
+        case 3:
+             GPIO_ResetBits(GPIOA, BSP_GPIOA_SW_LED_GREEN);
+             break;
+             
         case 4:
-             GPIO_SetBits(GPIOC, BSP_GPIOC_LED4);
+             GPIO_ResetBits(GPIOC, BSP_GPIOC_SW_LED_BLUE);
              break;
              
         default:

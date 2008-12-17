@@ -225,7 +225,7 @@ static  void  App_TaskStart (void *p_arg)
             BSP_LED_On(0);
             OSTimeDlyHMSM(0, 0, 0, 250);
             BSP_LED_Off(0);
-            answer[now_stage-1] = MakeRandomNumber(3);
+            answer[now_stage-1] = MakeRandomNumber(4);
             for (i = 0; i < now_stage; i++) {
                 OSTimeDlyHMSM(0, 0, 0, 500);
                 BSP_LED_On(answer[i]+1);
@@ -460,10 +460,6 @@ static  void  App_TaskUserIF (void *p_arg)
                 count++;
                 break;
             }
-            if(count%2)
-                BSP_LED_On(4);
-            else
-                BSP_LED_Off(4);
         }
     }
 }
@@ -495,7 +491,7 @@ static  void  App_Task7Segs (void *p_arg)
     while (DEF_TRUE) {
         msg = (CPU_INT32U)(OSMboxPend(App_7SegsMbox, OS_TICKS_PER_SEC / 10, &err));
         if (err == OS_NO_ERR) {
-            BSP_7Segs(msg%10);
+            BSP_7Segs(msg);
         }
     }
 }
